@@ -1,0 +1,30 @@
+<div class="">
+  <h2>Haznos saber tu opinino</h2>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre:</mat-label>
+    <input matInput required>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Apellido:</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Mensaje</mat-label>
+    <textarea matInput required></textarea>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <input matInput placeholder="pat@example.com" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" matBadgeColor="accent">
+    Enviar
+  </button>
+<hr>
+  <p class="text-muted">Este formulario te puede ayudar para hacer cotizaciones, pedidos o crititcas constructivas.</p>
+</div>
