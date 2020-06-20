@@ -1,3 +1,5 @@
+import { MensajeService } from './paginas_inicio/contacto/mensaje.service';
+import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,7 +17,6 @@ import { HeaderComponent } from './paginas_inicio/header/header.component';
 import { InicioComponent } from './paginas_inicio/inicio/inicio.component';
 import { NavbarComponent } from './paginas_inicio/navbar/navbar.component';
 import { PreguntasfComponent } from './paginas_inicio/preguntasf/preguntasf.component';
-
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -38,8 +39,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule  ],
-  providers: [ ],
+    FlexLayoutModule,
+    HttpClientModule
+    ],
+  providers: [ MensajeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
