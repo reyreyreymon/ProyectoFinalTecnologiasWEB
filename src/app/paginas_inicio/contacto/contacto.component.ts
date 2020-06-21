@@ -25,9 +25,10 @@ export class ContactoComponent implements OnInit {
   submit() {
     if (this.form.valid){
       console.log(this.form.value);
-      this.mensajeService.enviarMensaje(this.form.value).subscribe((data) => {
-        console.log('Enviado');
-    });
+      /*
+      this.mensajeService.enviarMensaje(this.form.value).subscribe(data => {
+        console.log(data);
+    });*/
     console.log("Sali");
     } else {
       alert('Llena todos los campos');
