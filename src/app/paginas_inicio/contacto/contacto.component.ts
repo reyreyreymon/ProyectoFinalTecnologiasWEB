@@ -7,7 +7,9 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./contacto.component.css']
 })
 export class ContactoComponent implements OnInit {
-
+  onSubmit(f) {
+    console.log(f.value);
+}
 
   constructor() {}
 
@@ -24,5 +26,6 @@ export class ContactoComponent implements OnInit {
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
+
 
 }
