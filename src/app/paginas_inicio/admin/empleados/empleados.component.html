@@ -1,31 +1,60 @@
-
+<div class="text-right">
+  <button class="btn btn-light ml-10" style="font-size: 30px;"><i class="fa fa-play-circle"></i></button>
+  <button class="btn btn-light ml-10" style="font-size: 30px;"><i class="fa fa-pause-circle"></i></button>
+  <button class="btn btn-light ml-10" style="font-size: 30px;"><i class="fa fa-reply"></i></button>
+</div>
 
 <div class="container p-2">
   <h2 class="text-center">EMPLEADOS</h2>
 </div>
 
 <div class="empleado m-3">
-  <div>
-    <h2 class="text-left">Empleado nuevo:</h2>
-    <div class="form-group">
-      <input type="text" class="form-control" [(ngModel)]="empleado_nombe" placeholder="Nombre Empleado">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" [(ngModel)]="empleado_apellido" placeholder="Apellido Empleado">
-    </div>
-    <div class="form-group">
-      <input type="number" class="form-control" [(ngModel)]="empleado_ano" placeholder="Ano de Nacimiento Empleado">
-    </div>
-    <div class="form-group">
-      <input type="number" class="form-control" [(ngModel)]="empleado_salario" placeholder="Salario Empleado">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" [(ngModel)]="empleado_puesto" placeholder="Puesto, ej. Supervisor o vendedor">
-    </div>
-    <div class="form-group text-left">
-      <button class="btn btn-primary" (click)="crearEmpleado()"
-      [disabled]="!empleado_nombe || !empleado_apellido || !empleado_ano || !empleado_salario || !empleado_puesto">+</button>
-    </div>
+  <div class="card p-3">
+    <form id="contactForm" [formGroup]="form" (ngSubmit)="submit()">
+      <h2 class="text-left">Empleado nuevo:</h2>
+
+      <mat-form-field appearance="legacy">
+        <input matInput formControlName="empleado_nombe1" class="form-control" name="empleado_nombe"
+          [(ngModel)]="empleado_nombe" placeholder="Nombre Empleado" maxlength="20" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="legacy">
+        <input matInput class="form-control" formControlName="empleado_apellido1" name="empleado_apellido"
+          [(ngModel)]="empleado_apellido" placeholder="Apellido Empleado" maxlength="20" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="legacy">
+        <input type="number" matInput class="form-control" formControlName="empleado_ano1" name="empleado_ano"
+        [(ngModel)]="empleado_ano" placeholder="Ano de Nacimiento Empleado" maxlength="4" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="legacy">
+        <input type="number" matInput class="form-control" formControlName="empleado_salario1" name="empleado_salario"
+          [(ngModel)]="empleado_salario" placeholder="Salario Empleado" maxlength="6" required>
+      </mat-form-field>
+      <br>
+<!--<mat-form-field appearance="legacy">
+        <mat-label class="form-control" formControlName="empleado_puesto1" name="empleado_puesto"
+        [(ngModel)]="empleado_puesto" required>Puesto</mat-label>
+        <mat-select>
+          <mat-option value="option">Administrador</mat-option>
+          <mat-option value="option">Vendedor</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>-->
+
+      <mat-form-field appearance="legacy">
+        <input matInput class="form-control" formControlName="empleado_puesto1" name="empleado_puesto"
+          [(ngModel)]="empleado_puesto" placeholder="Puesto, ej. Supervisor o vendedor" required>
+      </mat-form-field>
+
+      <br>
+      <div class="example-button-container">
+        <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+          <mat-icon>+</mat-icon>
+        </button>
+      </div>
+    </form>
     <div class="form-group">
       <h4><b>{{mensaje}}</b></h4>
     </div>
@@ -52,7 +81,9 @@
           </div>
           <span class="align-content-between">
             <a (click)="editarEmpledao(item)" class="btn btn-primary text-light m-1"><i class="fa fa-pencil"></i></a>
-            <a (click)="borrarEmpleado(item.id)" class="btn btn-danger btn-sm text-light m-1"><mat-icon>delete</mat-icon></a>
+            <a (click)="borrarEmpleado(item.id)" class="btn btn-danger btn-sm text-light m-1">
+              <mat-icon>delete</mat-icon>
+            </a>
           </span>
         </div>
       </div>
@@ -63,36 +94,34 @@
             <div class="card-title">
               Editar empleado
             </div>
-           <div class="row">
-             <div class="form-groug">
-               <div class="col-md-12">
-                 <input type="text" [(ngModel)]="item.editnombre" class="form-control w-75" >
-               </div>
-               <div class="col-md-12">
-                <input type="text" [(ngModel)]="item.editapellido" class="form-control w-75" >
-              </div>
-              <div class="col-md-12">
-                <input type="number" [(ngModel)]="item.editano" class="form-control w-75" >
-              </div>
-              <div class="col-md-12">
-                <input type="text" [(ngModel)]="item.editpuesto" class="form-control w-75" >
-              </div>
-              <div class="col-md-12">
-                <input type="number" [(ngModel)]="item.editsalario" class="form-control w-75" >
-              </div>
+            <div class="row">
+              <div class="form-groug">
+                <div class="col-md-12">
+                  <input type="text" [(ngModel)]="item.editnombre" class="form-control w-75">
+                </div>
+                <div class="col-md-12">
+                  <input type="text" [(ngModel)]="item.editapellido" class="form-control w-75">
+                </div>
+                <div class="col-md-12">
+                  <input type="number" [(ngModel)]="item.editano" class="form-control w-75" maxlength="4">
+                </div>
+                <div class="col-md-12">
+                  <input type="text" [(ngModel)]="item.editpuesto" class="form-control w-75">
+                </div>
+                <div class="col-md-12">
+                  <input type="number" [(ngModel)]="item.editsalario" class="form-control w-75">
+                </div>
 
-              <a (click)="item.editable = false" class="btn btn-danger btn-sm text-light m-1"><i class="fa fa-times-circle"></i></a>
-              <a (click)="actualizarEmpleado(item)" class="btn btn-success btn-sm text-light m-1"><i class="fa fa-check-circle"></i></a>
+                <a (click)="item.editable = false" class="btn btn-danger btn-sm text-light m-1"><i
+                    class="fa fa-times-circle"></i></a>
+                <a (click)="actualizarEmpleado(item)" class="btn btn-success btn-sm text-light m-1"><i
+                    class="fa fa-check-circle"></i></a>
 
-             </div>
+              </div>
             </div>
           </div>
         </div>
       </ng-template>
 
     </div>
-</div>
-
-
-
-
+  </div>

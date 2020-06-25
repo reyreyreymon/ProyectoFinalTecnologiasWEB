@@ -14,6 +14,12 @@ import { HeaderComponent } from './paginas_inicio/header/header.component';
 import { InicioComponent } from './paginas_inicio/inicio/inicio.component';
 import { NavbarComponent } from './paginas_inicio/navbar/navbar.component';
 import { PreguntasfComponent } from './paginas_inicio/preguntasf/preguntasf.component';
+import { ProductosComponent } from './paginas_inicio/admin/productos/productos.component';
+import {EmpleadosComponent} from "./paginas_inicio/admin/empleados/empleados.component";
+import { AnalisisComponent } from './paginas_inicio/admin/analisis/analisis.component';
+import { ProductosVComponent } from './paginas_inicio/vendedor/productos-v/productos-v.component';
+import { EmpleadosVComponent } from './paginas_inicio/vendedor/empleados-v/empleados-v.component';
+import { AnalisisVComponent } from './paginas_inicio/vendedor/analisis-v/analisis-v.component';
 
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
@@ -27,8 +33,8 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
 
 //Servicios
 import {CrudService} from "./service/crud/crud.service";
-import { ProductosComponent } from './paginas_inicio/admin/productos/productos.component';
-import { EmpleadosComponent } from './paginas_inicio/admin/empleados/empleados.component';
+import { LoginComponent } from './paginas_inicio/login/login.component';
+
 
 
 @NgModule({
@@ -42,7 +48,12 @@ import { EmpleadosComponent } from './paginas_inicio/admin/empleados/empleados.c
     NavbarComponent,
     PreguntasfComponent,
     ProductosComponent,
-    EmpleadosComponent
+    EmpleadosComponent,
+    AnalisisComponent,
+    ProductosVComponent,
+    EmpleadosVComponent,
+    AnalisisVComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

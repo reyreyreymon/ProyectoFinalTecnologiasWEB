@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from "../../../service/crud/crud.service";
+import {FormControl, FormBuilder, Validators} from "@angular/forms";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-empleados',
@@ -18,7 +20,21 @@ export class EmpleadosComponent implements OnInit {
   editable:boolean = false;
   mensaje: string;//alta
 
-  constructor(public crudService:CrudService) { }
+  form;
+
+  constructor(public crudService:CrudService, private formBuilder:FormBuilder, private _snackBar: MatSnackBar) {
+    this.form = formBuilder.group({
+      empleado_nombe1: ['', Validators.required],
+      empleado_apellido1: ['', Validators.required],
+      empleado_ano1: ['', [Validators.required]],
+      empleado_salario1: ['', Validators.required],
+      empleado_puesto1: ['', Validators.required]
+    });
+   }
+
+   submit(){
+     this.crearEmpleado();
+   }
 
   crearEmpleado(){
     let Record ={};
@@ -27,6 +43,9 @@ export class EmpleadosComponent implements OnInit {
     Record['ano'] = this.empleado_ano;
     Record['puesto'] = this.empleado_puesto;
     Record['salario'] = this.empleado_salario;
+    if(this.empleado_nombe==="" || this.empleado_apellido ==="" || this.empleado_ano === null|| this.empleado_nombe==="" || this.empleado_puesto==="" || this.empleado_salario == null){
+      return;
+    }
 
     this.crudService.crear_Nuevo_Empleado(Record)
     .then(res =>{
@@ -38,6 +57,10 @@ export class EmpleadosComponent implements OnInit {
 
       console.log(res);
       this.mensaje = "Empleado creado correctamente"
+      this._snackBar.open("Producto agredado", "Correctamente", {
+        duration: 2000,
+    });
+
     }).catch(error =>{
       console.log(error);
     });

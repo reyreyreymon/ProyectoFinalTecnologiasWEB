@@ -10,6 +10,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class NavbarComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter();
 
+  admin_login:boolean = true;
+  vendedor_login:boolean = true;
+
   constructor() { }
 
   ngOnInit() {

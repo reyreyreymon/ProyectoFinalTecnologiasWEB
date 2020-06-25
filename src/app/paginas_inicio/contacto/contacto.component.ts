@@ -7,9 +7,7 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./contacto.component.css']
 })
 export class ContactoComponent implements OnInit {
-  onSubmit(f) {
-    console.log(f.value);
-}
+
 
   constructor() {}
 

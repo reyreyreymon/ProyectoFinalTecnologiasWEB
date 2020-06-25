@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from "../../../service/crud/crud.service";
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormControl, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-productos',
@@ -17,13 +18,30 @@ export class ProductosComponent implements OnInit {
   editable:boolean = false;
   mensaje: string;//alta
 
-  constructor(public crudService:CrudService, private _snackBar: MatSnackBar) { }
+  form;
+
+  constructor(public crudService:CrudService, private _snackBar: MatSnackBar, private formBuilder:FormBuilder) {
+    this.form = formBuilder.group({
+      producto_descripcion1: ['', Validators.required],
+      producto_marca1: ['', Validators.required],
+      producto_precio1: ['', [Validators.required]]
+    });
+  }
+
+  submit(){
+    console.log(this.form.value);
+    this.crearProducto();
+  }
 
   crearProducto(){
     let Record ={};
     Record['descripcion'] = this.producto_descripcion;
     Record['marca'] = this.producto_marca;
     Record['precio'] = this.producto_precio;
+
+    if(this.producto_descripcion==="" || this.producto_marca ==="" || this.producto_precio === null){
+      return;
+    }
 
     this.crudService.crear_Nuevo_Producto(Record)
     .then(res =>{
@@ -32,14 +50,17 @@ export class ProductosComponent implements OnInit {
       this.producto_precio = null;
 
       console.log(res);
-
       this._snackBar.open("Producto agredado", "Correctamente", {
           duration: 2000,
       });
 
-      //this.mensaje = "Producto creado correctamente"
     }).catch(error =>{
+
+      this._snackBar.open("Error en agregar produto", error, {
+        duration: 2000,
+    });
       console.log(error);
+
     });
   }
 

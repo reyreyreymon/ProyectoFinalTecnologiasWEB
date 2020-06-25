@@ -1,3 +1,9 @@
+<div class="text-right">
+  <button class="btn btn-light ml-10" style="font-size: 30px;"><i class="fa fa-play-circle"></i></button>
+  <button class="btn btn-light ml-10" style="font-size: 30px;"><i class="fa fa-pause-circle"></i></button>
+  <button class="btn btn-light ml-10" style="font-size: 30px;"><i class="fa fa-reply"></i></button>
+</div>
+
 <div class="">
   <h2>Haznos saber tu opinino</h2>
 
@@ -28,32 +34,3 @@
 <hr>
   <p class="text-muted">Este formulario te puede ayudar para hacer cotizaciones, pedidos o crititcas constructivas.</p>
 </div>
-
-<mat-card class="contact-card">
-  <mat-card-header>
-    <mat-card-title>Template Form</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form novalidate (ngSubmit)="onSubmit()" #f="ngForm" >
-    <mat-form-field>
-      <input matInput placeholder="firstname"  class="form-control"  name="firstname" ngModel required >
-
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="lastname" class="form-control"  name="lastname" ngModel required >
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="email" class="form-control"  name="email" ngModel required >
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <textarea rows="4" cols="50" matInput placeholder="message" class="form-control"  name="message" ngModel required ></textarea>
-    </mat-form-field>
-    <br>
-    <button id="submit" mat-raised-button type="submit" color="primary">Submit</button>
-
-    </form>
-  </mat-card-content>
-</mat-card>

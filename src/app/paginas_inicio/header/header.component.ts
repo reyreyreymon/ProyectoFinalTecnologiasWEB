@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -8,9 +7,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  admin_login:boolean = true;
+  vendedor_login:boolean = true;
+
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
@@ -22,3 +24,4 @@ export class HeaderComponent implements OnInit {
 
 
 }
+
