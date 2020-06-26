@@ -8,6 +8,11 @@
   <h2 class="text-center">ESTADISTICAS</h2>
 </div>
 
-<div class="container">
-  aqui van las graficas de firebase
-</div>
+<div class="centrado" style="width: 70%; ">
+  <canvas baseChart
+  [datasets]="barChartData"
+  [labels]="barChartLabels"
+  [options]="barChartOptions"
+  [legend]="barChartLegend"
+  [chartType]="barChartType"></canvas>
+      </div>
