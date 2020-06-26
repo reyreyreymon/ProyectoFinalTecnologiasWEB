@@ -16,7 +16,7 @@
       <h2 class="text-left">Empleado nuevo:</h2>
       <mat-form-field appearance="legacy">
         <input matInput formControlName="empleado_nombe1" class="form-control" name="empleado_nombe"
-          [(ngModel)]="empleado_nombe" placeholder="Nombre Empleado" maxlength="20" required>
+          [(ngModel)]="empleado_nombe" placeholder="Nombre Empleado" minlength='4' maxlength="20" required >
       </mat-form-field>
       <br>
       <mat-form-field appearance="legacy">
@@ -115,3 +115,19 @@
 
     </div>
   </div>
+
+
+  <ol>
+    <li>
+      <mat-form-field>
+        <mat-label>What's your name?</mat-label>
+        <input matInput [(ngModel)]="name">
+      </mat-form-field>
+    </li>
+    <li>
+      <button mat-raised-button (click)="openDialog()">Pick one</button>
+    </li>
+    <li *ngIf="animal">
+      You chose: <i>{{animal}}</i>
+    </li>
+  </ol>

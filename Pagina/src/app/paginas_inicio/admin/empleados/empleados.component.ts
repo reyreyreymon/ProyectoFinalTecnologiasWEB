@@ -1,7 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { CrudService } from "../../../service/crud/crud.service";
 import {FormControl, FormBuilder, Validators} from "@angular/forms";
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { LoginComponent } from '../../login/login.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ConfirmacionComponent } from 'src/app/dialogos/confirmacion/confirmacion.component';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-empleados',
@@ -22,7 +30,15 @@ export class EmpleadosComponent implements OnInit {
 
   form;
 
-  constructor(public crudService:CrudService, private formBuilder:FormBuilder, private _snackBar: MatSnackBar) {
+  animal: string;
+  name: string;
+
+  constructor(
+    public crudService:CrudService,
+    private formBuilder:FormBuilder,
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) {
+
     this.form = formBuilder.group({
       empleado_nombe1: ['', Validators.required],
       empleado_apellido1: ['', Validators.required],
@@ -30,9 +46,11 @@ export class EmpleadosComponent implements OnInit {
       empleado_salario1: ['', Validators.required],
       empleado_puesto1: ['', Validators.required]
     });
+
    }
 
    submit(){
+    this.Dialogo();
      this.crearEmpleado();
    }
 
@@ -109,6 +127,22 @@ export class EmpleadosComponent implements OnInit {
 
   borrarEmpleado(id){
     this.crudService.eliminar_Empleado(id);
+  }
+
+  Dialogo(){
+    this.dialog.open(LoginComponent);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmacionComponent, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
   }
 
 }

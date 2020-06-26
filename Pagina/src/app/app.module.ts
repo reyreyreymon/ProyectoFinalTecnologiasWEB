@@ -26,16 +26,18 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
 
+//Servicios
+import {CrudService} from "./service/crud/crud.service";
+import { MessService } from './service/mensaje/mess.service';
+
 //Firebase
 import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {environment} from '../environments/environment'
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 
-//Servicios
-import {CrudService} from "./service/crud/crud.service";
-import { MessService } from './service/mensaje/mess.service';
 import { LoginComponent } from './paginas_inicio/login/login.component';
+import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.component';
 
 
 
@@ -55,7 +57,8 @@ import { LoginComponent } from './paginas_inicio/login/login.component';
     ProductosVComponent,
     EmpleadosVComponent,
     AnalisisVComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmacionComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +75,7 @@ import { LoginComponent } from './paginas_inicio/login/login.component';
 
     ],
   providers: [CrudService, MessService ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[LoginComponent, ConfirmacionComponent]
 })
 export class AppModule { }
