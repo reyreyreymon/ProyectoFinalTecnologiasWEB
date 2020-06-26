@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {ChartsModule} from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -53,7 +53,8 @@ import { LoginComponent } from './paginas_inicio/login/login.component';
     ProductosVComponent,
     EmpleadosVComponent,
     AnalisisVComponent,
-    LoginComponent
+    LoginComponent, 
+    
   ],
   imports: [
     BrowserModule,
@@ -65,7 +66,8 @@ import { LoginComponent } from './paginas_inicio/login/login.component';
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), //Hacer la  conexion a nuestra base
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ChartsModule
 
     ],
   providers: [CrudService ],
