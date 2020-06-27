@@ -1,12 +1,106 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
+<!--/////////////////////////////////////////Empledaos-->
+<!--Dialogo de empleado Creado-->
+<div *ngIf="data.estado =='empleado_creado'" class="dialogo_creado">
+  <h1 mat-dialog-title>Empleado Creado Exitosamente</h1>
+  <div mat-dialog-content class="text-justify">
+    <h4>Datos:</h4>
+        <p> <strong>Nombre: </strong> {{data.name}}</p>
+        <p> <strong>Apellido: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+
+<!--Dialogo de empleado no creado-->
+<div *ngIf="data.estado =='empleado_no_creado'" class="dialogo_error"  >
+  <h1 mat-dialog-title>Error al crear empleado</h1>
+  <div mat-dialog-content class="text-justify">
+    <h4>Error:</h4>
+        <p> El empleado no ha sido </p>
+        <p> anadido a la base de datos.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de empleado Actualizado-->
+<div mat-dialog-content *ngIf="data.estado =='empleado_actualizado'" class="dialogo_actualizado">
+  <h1 mat-dialog-title>Empleado Actualizado Exitosamente</h1>
+  <hr>
+  <div class="text-justify">
+    <h4>Datos:</h4>
+        <p> <strong>Nombre: </strong> {{data.name}}</p>
+        <p> <strong>Apellido: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de empleado Eliminado-->
+<div *ngIf="data.estado =='empleado_eliminado'" class="dialogo_eliminado">
+  <h1 mat-dialog-title>Empleado Eliminado Exitosamente</h1>
+  <div mat-dialog-content class="text-justify">
+    <h4>Exito:</h4>
+        <p> El empleado ha sido eliminado </p>
+        <p> de la base de datos.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--/////////////////////////////////////////Productos-->
+<!--Dialogo de Productos Creado-->
+<div *ngIf="data.estado =='producto_creado'" class="dialogo_creado">
+  <h1 mat-dialog-title>Producto Creado Exitosamente</h1>
+  <div mat-dialog-content class="text-justify">
+    <h4>Datos:</h4>
+        <p> <strong>Nombre: </strong> {{data.name}}</p>
+        <p> <strong>Apellido: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de producto no creado-->
+<div *ngIf="data.estado =='producto_no_creado'" class="dialogo_error" >
+  <h1 mat-dialog-title>Error al crear producto</h1>
+  <div mat-dialog-content class="text-justify">
+    <h4>Error:</h4>
+        <p> El Producto no ha sido </p>
+        <p> anadido a la base de datos.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de producto Actualizado-->
+<div *ngIf="data.estado =='producto_actualizado'" class="dialogo_actualizado">
+  <h1 mat-dialog-title>Producto Actualizado Exitosamente</h1>
+  <div mat-dialog-content class="text-justify">
+    <h4>Datos:</h4>
+        <p> <strong>Nombre: </strong> {{data.name}}</p>
+        <p> <strong>Apellido: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de producto Eliminado-->
+<div *ngIf="data.estado =='producto_eliminado'" class="dialogo_eliminado">
+  <h1 mat-dialog-title>Producto Eliminado Exitosamente</h1>
+  <div mat-dialog-content class="text-justify">
+    <h4>Exito:</h4>
+        <p> El empleado ha sido eliminado </p>
+        <p> de la base de datos.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
 </div>
