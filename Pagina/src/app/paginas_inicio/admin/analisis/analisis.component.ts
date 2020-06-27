@@ -26,15 +26,15 @@ export class AnalisisComponent implements OnInit {
   }
    };
 //--------------------------------
- barChartLabels= [];
+ barChartLabels:any= [];
  barChartType='bar';
  barChartLegend=true;
- barChartData=[{
-  data:[], label:'datos1', backgroundColor: "rgba(220,220,220,0.5)"
+ barChartData:any = [{
+  data:[], label:'existencias', backgroundColor: "rgba(220,220,220,0.5)"
 }
 
 ];
-  
+   arreglo:any=[];
   ngOnInit(): void {
     this.datos.obtener_Productos()
     .subscribe(data => {
@@ -47,13 +47,18 @@ export class AnalisisComponent implements OnInit {
           precio: e.payload.doc.data()['precio'],
           existencia: e.payload.doc.data()['existencia']
        };
-       
+      
        
       })
-      //for(let i=0;this.productos;i++){
-        //this.barChartLabels=this.productos[i].descripcion;
-      //}
-      console.log(this.productos[0].descripcion);
+      console.log(this.productos[0].existencia);
+      for(let i=0;this.productos;i++){
+        this.barChartLabels[i]=this.productos[i].descripcion;
+      this.barChartData[0].data[i]=this.productos[i].existencia;
+      }
+      //this.barChartData.data=this.arreglo;
+      
+      
+     
     });
 
   
