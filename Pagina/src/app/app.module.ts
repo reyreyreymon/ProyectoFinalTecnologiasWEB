@@ -25,6 +25,7 @@ import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
+import {LoginComponent} from "./paginas_inicio/login/login.component";
 
 //Graficas
 import {ChartsModule} from 'ng2-charts';
@@ -38,12 +39,14 @@ import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {environment} from '../environments/environment'
 import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {AngularFirestore} from '@angular/fire/firestore';
+
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 //Dialogos
-import { LoginComponent } from './dialogos/login/login.component';
 import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.component';
-
-
+import { RegistrarComponent } from './paginas_inicio/registrar/registrar.component';
 
 @NgModule({
   declarations: [
@@ -61,8 +64,9 @@ import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.comp
     ProductosVComponent,
     EmpleadosVComponent,
     AnalisisVComponent,
+    ConfirmacionComponent,
     LoginComponent,
-    ConfirmacionComponent
+    RegistrarComponent
   ],
   imports: [
     BrowserModule,
@@ -76,11 +80,12 @@ import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.comp
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    AngularFireStorageModule
 
     ],
-  providers: [CrudService, MessService ],
+  providers: [CrudService, MessService, AngularFireAuth, AngularFirestore ],
   bootstrap: [AppComponent],
-  entryComponents:[LoginComponent, ConfirmacionComponent]
+  entryComponents:[ConfirmacionComponent]
 })
 export class AppModule { }

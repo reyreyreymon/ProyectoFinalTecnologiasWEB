@@ -1,0 +1,37 @@
+<section id="register" class="mb-5 mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+        <div class="card_register">
+          <div class="card">
+            <div class="card-body text-center">
+              <form #formRegister="ngForm" (ngSubmit)="onAddUser()">
+                <h1 class="h3 mb-3 font-weight-normal">Resitrarse</h1>
+                <div class="form-group">
+                  <input type="email" name="email" class="form-control" placeholder="Correo" [(ngModel)]="email" required
+                    minlength="8">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" class="form-control" placeholder="Contasena"
+                    [(ngModel)]="password" required minlength="5" maxlength="10">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password2" class="form-control" placeholder="Repetir Contrasena"
+                    [(ngModel)]="password2" required minlength="5" maxlength="10">
+                </div>
+                <button type="submit" [disabled]="!email || !password || !password2 " class="btn btn-lg btn-secondary btn-block">Registrarse</button>
+                <div class="form-group">
+                  <a routerLink="/login" class="form-control login-user">Ya tienes cuenta ?</a>
+                </div>
+                <div class="form-group">
+                  <a class="btn btn-block btn-social btn-google text-light" (click)=onLoginGoogle()>
+                    <i class="fa fa-google"></i> Google</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

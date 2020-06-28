@@ -16,7 +16,9 @@ import {AnalisisVComponent} from "./paginas_inicio/vendedor/analisis-v/analisis-
 import {EmpleadosVComponent} from "./paginas_inicio/vendedor/empleados-v/empleados-v.component";
 import {ProductosVComponent} from "./paginas_inicio/vendedor/productos-v/productos-v.component";
 
-
+//login
+import {LoginComponent} from "./paginas_inicio/login/login.component";
+import {RegistrarComponent} from "./paginas_inicio/registrar/registrar.component";
 
 
 
@@ -36,6 +38,10 @@ const routes: Routes = [
   {path: "empleados_v", component:EmpleadosVComponent},
   {path: "productos_v", component:ProductosVComponent},
   {path: "analisis_v", component:AnalisisVComponent},
+
+  //login
+  {path: "registrar", component:RegistrarComponent},
+  {path: "login", component:LoginComponent},
 
   {path: "", pathMatch: "full", redirectTo: "inicio"},
   {path: "**", pathMatch: "full", redirectTo: "inicio"}
