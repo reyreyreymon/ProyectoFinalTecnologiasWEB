@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudService } from "../../../service/crud/crud.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { FormControl, FormBuilder, Validators } from "@angular/forms";
-import {  MatDialog,  MatDialogRef,  MAT_DIALOG_DATA,} from "@angular/material/dialog";
+import { FormBuilder, Validators } from "@angular/forms";
+import {  MatDialog} from "@angular/material/dialog";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
 
 export interface DialogData {
@@ -27,7 +26,6 @@ export class ProductosComponent implements OnInit {
   mensaje: string; //alta
 
   form;
-
 
   //variables del dialogo
   animal: string;
@@ -57,14 +55,14 @@ export class ProductosComponent implements OnInit {
     Record["marca"] = this.producto_marca;
     Record["precio"] = this.producto_precio;
     Record["existencia"] = this.producto_existencia;
-
     if (
       this.producto_descripcion === "" ||
       this.producto_marca === "" ||
-      this.producto_precio === null ||
-      this.producto_existencia === null
+      this.producto_precio == null ||
+      this.producto_existencia == null
     ) {
       //Dialogo
+      this.variables_Dialogo(this.producto_descripcion, this.producto_marca);
       this.estado_Creacion = "producto_no_creado";
       this.openDialog();
       return;
@@ -73,6 +71,8 @@ export class ProductosComponent implements OnInit {
     this.crudService
       .crear_Nuevo_Producto(Record)
       .then((res) => {
+        this.variables_Dialogo(this.producto_descripcion, this.producto_marca);
+
         this.producto_descripcion = "";
         this.producto_marca = "";
         this.producto_precio = null;
@@ -80,7 +80,6 @@ export class ProductosComponent implements OnInit {
 
         console.log(res);
         //Dialogo
-        this.variables_Dialogo(this.producto_descripcion, this.producto_marca);
         this.estado_Creacion = "producto_creado";
         this.openDialog();
       })
@@ -136,6 +135,7 @@ export class ProductosComponent implements OnInit {
 
   borrarProducto(id) {
     this.crudService.eliminar_Producto(id);
+    //Dialogo
     this.estado_Creacion = "producto_eliminado";
     this.openDialog();
   }
@@ -143,7 +143,8 @@ export class ProductosComponent implements OnInit {
   //dialogos de informacion
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmacionComponent, {
-      width: "300px",
+      height: "35%",
+      width: "50%",
       data: {
         name: this.name,
         animal: this.animal,

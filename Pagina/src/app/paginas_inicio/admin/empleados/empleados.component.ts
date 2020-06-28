@@ -1,11 +1,7 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CrudService } from "../../../service/crud/crud.service";
-import { FormControl, FormBuilder, Validators } from "@angular/forms";
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from "@angular/material/dialog";
+import { FormBuilder, Validators } from "@angular/forms";
+import {  MatDialog } from "@angular/material/dialog";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
 
 export interface DialogData {
@@ -55,10 +51,7 @@ export class EmpleadosComponent implements OnInit {
   }
 
   submit() {
-    //this.estado_Creacion = 'empleado_no_creado';
-    //this.openDialog();
     this.crearEmpleado();
-    //this.estado_Creacion = '';
   }
 
   crearEmpleado() {
@@ -77,6 +70,7 @@ export class EmpleadosComponent implements OnInit {
       this.empleado_salario == null
     ) {
       //Dialogo
+      this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
       this.estado_Creacion = "empleado_no_creado";
       this.openDialog();
       return;
@@ -84,6 +78,8 @@ export class EmpleadosComponent implements OnInit {
     this.crudService
       .crear_Nuevo_Empleado(Record)
       .then((res) => {
+        this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
+
         this.empleado_nombe = "";
         this.empleado_apellido = "";
         this.empleado_ano = null;
@@ -91,7 +87,6 @@ export class EmpleadosComponent implements OnInit {
         this.empleado_salario = null;
         console.log(res);
         //Dialogo
-        this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
         this.estado_Creacion = "empleado_creado";
         this.openDialog();
       })
@@ -159,8 +154,8 @@ export class EmpleadosComponent implements OnInit {
   //dialogos de informacion
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmacionComponent, {
-      height: "265px",
-      width: "400px",
+      height: "35%",
+      width: "50%",
       data: {
         name: this.name,
         animal: this.animal,

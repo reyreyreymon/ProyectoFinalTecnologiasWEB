@@ -9,7 +9,6 @@
 </div>
 
 <div class="empleado m-3">
-
   <!--Formulario de altas-->
   <div class="card p-3">
     <form id="contactForm" [formGroup]="form" (ngSubmit)="submit()">
@@ -26,7 +25,7 @@
       <br>
       <mat-form-field appearance="legacy">
         <input type="number" matInput class="form-control" formControlName="empleado_ano1" name="empleado_ano"
-          [(ngModel)]="empleado_ano" placeholder="Ano de Nacimiento Empleado" maxlength="4" required>
+          [(ngModel)]="empleado_ano" placeholder="Ano de Nacimiento Empleado" min="4" maxlength="4" required>
       </mat-form-field>
       <br>
       <mat-form-field appearance="legacy">
@@ -57,9 +56,6 @@
         </button>
       </div>
     </form>
-    <div class="form-group">
-      <h4><b>{{mensaje}}</b></h4>
-    </div>
   </div>
 
   <!--Modo editable desactivado, mostrando todos los elelmentos-->

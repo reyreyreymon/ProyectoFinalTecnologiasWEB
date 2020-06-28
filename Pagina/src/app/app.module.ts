@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {ChartsModule} from 'ng2-charts';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -26,6 +26,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
 
+//Graficas
+import {ChartsModule} from 'ng2-charts';
+
 //Servicios
 import {CrudService} from "./service/crud/crud.service";
 import { MessService } from './service/mensaje/mess.service';
@@ -36,6 +39,7 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {environment} from '../environments/environment'
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 
+//Dialogos
 import { LoginComponent } from './paginas_inicio/login/login.component';
 import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.component';
 

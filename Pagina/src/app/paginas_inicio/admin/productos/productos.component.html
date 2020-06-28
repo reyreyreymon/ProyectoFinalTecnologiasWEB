@@ -14,23 +14,23 @@
     <form id="contactForm" [formGroup]="form" (ngSubmit)="submit()">
       <h2 class="text-left">Producto nuevo:</h2>
       <mat-form-field appearance="legacy">
-        <input matInput class="form-control" formControlName="producto_descripcion1" name="producto_descripcion1"
-        [(ngModel)]="producto_descripcion" placeholder="Descripcion" required>
+        <input matInput class="form-control" formControlName="producto_descripcion1" name="producto_descripcion"
+        [(ngModel)]="producto_descripcion" placeholder="Descripcion"  maxlength="20" required>
       </mat-form-field>
       <br>
       <mat-form-field appearance="legacy">
-        <input matInput class="form-control" formControlName="producto_marca1" name="producto_marca1"
-        [(ngModel)]="producto_marca" placeholder="Marca" required>
+        <input matInput class="form-control" formControlName="producto_marca1" name="producto_marca"
+        [(ngModel)]="producto_marca" placeholder="Marca" maxlength="20" required>
       </mat-form-field>
       <br>
       <mat-form-field appearance="legacy">
-        <input type="number" matInput class="form-control" formControlName="producto_precio1" name="producto_precio1"
-          [(ngModel)]="producto_precio" placeholder="Precio" required>
+        <input type="number" matInput class="form-control" formControlName="producto_precio1" name="producto_precio"
+          [(ngModel)]="producto_precio" placeholder="Precio" maxlength="6" required>
       </mat-form-field>
       <br>
       <mat-form-field appearance="legacy">
-        <input type="number" matInput class="form-control" formControlName="producto_existencia1" name="producto_existencia1"
-          [(ngModel)]="producto_existencia" placeholder="Existencia" required>
+        <input type="number" matInput class="form-control" formControlName="producto_existencia1" name="producto_existencia"
+          [(ngModel)]="producto_existencia" placeholder="Existencia" maxlength="6" required>
       </mat-form-field>
       <br>
       <div class="example-button-container">
@@ -39,9 +39,6 @@
         </button>
       </div>
     </form>
-    <div class="form-group">
-      <h4><b>{{mensaje}}</b></h4>
-    </div>
   </div>
 
 
@@ -77,16 +74,16 @@
            <div class="row">
              <div class="form-groug">
                <div class="col-md-12">
-                 <input type="text" [(ngModel)]="item.editdescripcion" class="form-control w-75" >
+                 <input type="text" [(ngModel)]="item.editdescripcion" class="form-control w-75" required>
                </div>
                <div class="col-md-12">
-                <input type="text" [(ngModel)]="item.editmarca" class="form-control w-75" >
+                <input type="text" [(ngModel)]="item.editmarca" class="form-control w-75" required>
               </div>
               <div class="col-md-12">
-                <input type="number" [(ngModel)]="item.editprecio" class="form-control w-75" >
+                <input type="number" [(ngModel)]="item.editprecio" class="form-control w-75" required>
               </div>
               <div class="col-md-12">
-                <input type="number" [(ngModel)]="item.editexistencia" class="form-control w-75" >
+                <input type="number" [(ngModel)]="item.editexistencia" class="form-control w-75" required>
               </div>
 
               <a (click)="item.editable = false" class="btn btn-danger btn-sm text-light m-1"><i class="fa fa-times-circle"></i></a>

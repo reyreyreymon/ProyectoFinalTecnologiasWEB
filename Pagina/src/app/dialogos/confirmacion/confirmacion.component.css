@@ -1,38 +1,27 @@
 .dialogo_creado {
   background-color: #26d474;
   color: white;
-  padding: 10px;
-  margin: -24px;
-  height: 260px;
-  width: 400px;
 }
 .dialogo_eliminado {
   background-color: #eb2d40;
   color: white;
-  padding: 10px;
-  margin: -24px;
-  height: 260px;
-  width: 390px;
 }
 .dialogo_actualizado {
   background-color: #1a76e8;
   color: white;
-  padding: 10px;
-  margin: -24px;
-  height: 265px;
-  width: 400px;
 }
 .dialogo_error {
   background-color: #ffd417;
   color: black;
-  padding: 10px;
-  margin: -24px;
-  height: 265px;
-  width: 400px;
 }
 .dialogo_creado, .dialogo_eliminado, .dialogo_actualizado, .dialogo_error{
   align-items: center;
   text-align: center;
+  padding: 10px;
+  margin: -0px;
+  height: 100%;
+  width: 100%;
+  line-height: 3px;
 }
 button{
   background-color: white;
