@@ -40,7 +40,7 @@ import {environment} from '../environments/environment'
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 
 //Dialogos
-import { LoginComponent } from './paginas_inicio/login/login.component';
+import { LoginComponent } from './dialogos/login/login.component';
 import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.component';
 
 

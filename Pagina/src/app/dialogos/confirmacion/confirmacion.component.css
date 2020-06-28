@@ -21,9 +21,46 @@
   margin: -0px;
   height: 100%;
   width: 100%;
-  line-height: 3px;
 }
 button{
   background-color: white;
   color: black;
+}
+
+
+@media only screen and (min-width: 340px){
+  h1{
+    font-size: 15px;
+  }
+  h4{
+    font-size: 12px;
+  }
+  p{
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 780px){
+  h1{
+    font-size: 20px;
+  }
+  h4{
+    font-size: 15px;
+  }
+  p{
+    font-size: 14px;
+  }
+}
+
+
+@media only screen and (min-width: 1024px){
+  h1{
+    font-size: 25px;
+  }
+  h4{
+    font-size: 20px;
+  }
+  p{
+    font-size: 17px;
+  }
 }
