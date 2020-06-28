@@ -29,7 +29,10 @@ export class LoginComponent implements OnInit {
     this.authService
       .loginEmailUser(this.email, this.password)
       .then((res) => {
-        this.router.navigate(["admin/list-books"]);
+
+        localStorage.setItem("usuario",this.email);
+        localStorage.setItem("usuario_logueado","1");
+        this.router.navigate(["header"]);
       })
       .catch((err) => console.log("err", err));
   }
@@ -48,10 +51,12 @@ export class LoginComponent implements OnInit {
       .then((res) => {
         console.log("resUser", res);
       });
-    this.router.navigate(["admin/list-books"]);
+      this.router.navigate(["/inicio"]);
   }
 
   onLogout() {
     this.afAuth.auth.signOut();
+    localStorage.setItem("usuario", "");
+    localStorage.setItem("tipo_usuario", "");
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudService } from "../../../service/crud/crud.service";
 import { FormBuilder, Validators } from "@angular/forms";
-import {  MatDialog } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
+import { newArray } from "@angular/compiler/src/util";
 
 export interface DialogData {
   animal: string;
@@ -23,6 +24,21 @@ export class EmpleadosComponent implements OnInit {
   empleado_ano: number;
   empleado_puesto: string;
   empleado_salario: number;
+  empleado_correo: string = "";
+
+  empleados_local = [
+    {
+      id: "",
+      editable: "",
+      nombre: "",
+      apellido: "",
+      correo: "",
+      ano: "",
+      puesto: "",
+      salario: "",
+    },
+  ];
+  correos: any = [];
 
   editable: boolean = false;
   mensaje: string; //alta
@@ -34,7 +50,7 @@ export class EmpleadosComponent implements OnInit {
   name: string;
   estado_Creacion: string = "";
 
-  puesto:string;
+  puesto: string;
 
   constructor(
     public crudService: CrudService,
@@ -43,6 +59,7 @@ export class EmpleadosComponent implements OnInit {
   ) {
     this.form = formBuilder.group({
       empleado_nombe1: ["", Validators.required],
+      empleado_correo1: ["", [Validators.required, Validators.email]],
       empleado_apellido1: ["", Validators.required],
       empleado_ano1: ["", [Validators.required]],
       empleado_salario1: ["", Validators.required],
@@ -55,19 +72,40 @@ export class EmpleadosComponent implements OnInit {
   }
 
   crearEmpleado() {
+    console.log("iniciocorreos");
+    console.log(this.empleados_local[0].correo);
+    console.log(this.empleados_local[1].correo);
+    console.log(this.empleados_local.length);
+    console.log("fin");
+    let correo = "";
+    for (let i = 0; i < this.empleados_local.length; i++) {
+      // console.log(this.empleados_local[i]['correo']);
+      correo = this.empleados_local[i]["correo"];
+      if (correo === this.empleado_correo) {
+        //Dialogo
+        this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
+        this.estado_Creacion = "empleado_no_creado";
+        this.openDialog();
+        return;
+      }
+    }
+    console.log("entre");
     let Record = {};
     Record["nombre"] = this.empleado_nombe;
     Record["apellido"] = this.empleado_apellido;
+    Record["correo"] = this.empleado_correo;
     Record["ano"] = this.empleado_ano;
     Record["puesto"] = this.empleado_puesto;
     Record["salario"] = this.empleado_salario;
+
     if (
       this.empleado_nombe === "" ||
       this.empleado_apellido === "" ||
       this.empleado_ano === null ||
       this.empleado_nombe === "" ||
       this.empleado_puesto === "" ||
-      this.empleado_salario == null
+      this.empleado_salario == null ||
+      this.empleado_correo === ""
     ) {
       //Dialogo
       this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
@@ -75,13 +113,14 @@ export class EmpleadosComponent implements OnInit {
       this.openDialog();
       return;
     }
+
     this.crudService
       .crear_Nuevo_Empleado(Record)
       .then((res) => {
         this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
-
         this.empleado_nombe = "";
         this.empleado_apellido = "";
+        this.empleado_correo = "";
         this.empleado_ano = null;
         this.empleado_puesto = "";
         this.empleado_salario = null;
@@ -108,11 +147,20 @@ export class EmpleadosComponent implements OnInit {
           editable: false,
           nombre: e.payload.doc.data()["nombre"],
           apellido: e.payload.doc.data()["apellido"],
+          correo: e.payload.doc.data()["correo"],
           ano: e.payload.doc.data()["ano"],
           puesto: e.payload.doc.data()["puesto"],
           salario: e.payload.doc.data()["salario"],
         };
       });
+      this.empleados_local = this.empleados;
+      console.log("Local: ", this.empleados_local);
+      /*
+      //obtener los correos
+      for (let i = 0; this.empleados; i++) {
+        this.correos[i] = this.empleados[i]['correo'];
+      }
+*/
       console.log(this.empleados);
     });
   }
@@ -120,6 +168,7 @@ export class EmpleadosComponent implements OnInit {
   editarEmpledao(Record) {
     Record.editable = true;
     Record.editnombre = Record.nombre;
+    Record.editcorreo = Record.correo;
     Record.editapellido = Record.apellido;
     Record.editano = Record.ano;
     Record.editpuesto = Record.puesto;
@@ -130,6 +179,7 @@ export class EmpleadosComponent implements OnInit {
     let Record = {};
     Record["nombre"] = item.editnombre;
     Record["apellido"] = item.editapellido;
+    Record["correo"] = item.editcorreo;
     Record["ano"] = item.editano;
     Record["puesto"] = item.editpuesto;
     Record["salario"] = item.editsalario;

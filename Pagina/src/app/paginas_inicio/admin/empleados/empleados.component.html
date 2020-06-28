@@ -24,6 +24,11 @@
       </mat-form-field>
       <br>
       <mat-form-field appearance="legacy">
+        <input matInput formControlName="empleado_correo1" class="form-control" name="empleado_correo" type="email"
+          [(ngModel)]="empleado_correo" placeholder="Correo Empleado" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="legacy">
         <input type="number" matInput class="form-control" formControlName="empleado_ano1" name="empleado_ano"
           [(ngModel)]="empleado_ano" placeholder="Ano de Nacimiento Empleado" min="4" maxlength="4" required>
       </mat-form-field>
@@ -37,24 +42,27 @@
       <mat-form-field appearance="legacy">
         <mat-label>Puesto</mat-label>
         <select matNativeControl required class="form-control" formControlName="empleado_puesto1" name="empleado_puesto"
-        [(ngModel)]="empleado_puesto" [(value)] = "puesto">
+          [(ngModel)]="empleado_puesto" [(value)]="puesto">
           <option value="supervisor">Supervisor</option>
           <option value="vendedor">Vendedor</option>
         </select>
       </mat-form-field>
-<br>
-<!--
+      <br>
+      <!--
 <mat-form-field appearance="legacy">
   <input matInput class="form-control" formControlName="empleado_puesto1" name="empleado_puesto"
     [(ngModel)]="empleado_puesto" placeholder="Puesto, ej. Supervisor o vendedor" required>
 </mat-form-field>
 
       <br>-->
-      <div class="example-button-container">
-        <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
-          <mat-icon>+</mat-icon>
-        </button>
-      </div>
+
+        <div class="example-button-container" >
+          <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+            <mat-icon>+</mat-icon>
+          </button>
+        </div>
+
+
     </form>
   </div>
 
@@ -68,6 +76,9 @@
           </div>
           <div class="card-title">
             Apellido: {{item.apellido}}
+          </div>
+          <div class="card-title">
+            Correo: {{item.correo}}
           </div>
           <div class="card-title">
             Ano de Nacimiento: {{item.ano}}
@@ -101,6 +112,9 @@
                 </div>
                 <div class="col-md-12">
                   <input type="text" [(ngModel)]="item.editapellido" class="form-control w-75" required>
+                </div>
+                <div class="col-md-12">
+                  <input type="email" [(ngModel)]="item.editcorreo" class="form-control w-75" required>
                 </div>
                 <div class="col-md-12">
                   <input type="number" [(ngModel)]="item.editano" class="form-control w-75" maxlength="4" required>
