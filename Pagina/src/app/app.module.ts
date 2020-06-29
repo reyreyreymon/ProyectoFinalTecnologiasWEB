@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -81,7 +82,8 @@ import { RegistrarComponent } from './paginas_inicio/registrar/registrar.compone
     AngularFirestoreModule,
     HttpClientModule,
     ChartsModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgxQRCodeModule
 
     ],
   providers: [CrudService, MessService, AngularFireAuth, AngularFirestore ],

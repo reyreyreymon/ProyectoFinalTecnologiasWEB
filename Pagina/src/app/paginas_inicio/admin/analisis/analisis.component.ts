@@ -213,7 +213,7 @@ export class AnalisisComponent implements OnInit {
   resume(){
     this.speech.resume();
   }
-
+info:string;
   barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -256,6 +256,12 @@ export class AnalisisComponent implements OnInit {
       for (let i = 0; this.productos; i++) {
         this.barChartLabels[i] = this.productos[i]["descripcion"];
         this.barChartData[0].data[i] = this.productos[i]["existencia"];
+        if(i<=5){
+        this.info+="\nid: "+this.productos[i].id+"\ndescripcion:"+
+        this.productos[i].descripcion+" \nmarca:"+this.productos[i].marca+
+        "\nprecio:"+this.productos[i].precio+" \nexistencia: "+this.productos[i].existencia+
+        "\n------------------\n";
+        }
       }
       //this.barChartData.data=this.arreglo;
     });
