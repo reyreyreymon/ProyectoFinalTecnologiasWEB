@@ -1,6 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudService } from "../../../service/crud/crud.service";
 import Speech from 'speak-tts';//importamos el lector
+import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
+import { MatDialog } from "@angular/material/dialog";
+
+export interface DialogData {
+  animal: string;
+  name: string;
+  estado: string;
+}
 
 @Component({
   selector: "app-analisis",
@@ -10,6 +18,11 @@ import Speech from 'speak-tts';//importamos el lector
 export class AnalisisComponent implements OnInit {
   productos: any;
   Datos = this.productos;
+
+  //variables del dialogo
+  animal: string;
+  name: string;
+  estado_Creacion: string = "";
 
   //-----------------------------------consultas
   //empleados
@@ -69,7 +82,7 @@ export class AnalisisComponent implements OnInit {
   result = '';
   speech: any;
 
-  constructor(public datos: CrudService) {
+  constructor(public datos: CrudService, public dialog: MatDialog) {
     //Iniciamos lec de pantalla
     this.speech = new Speech() // will throw an exception if not browser supported
     if(this.speech .hasBrowserSupport()) { // returns a boolean
@@ -130,7 +143,16 @@ export class AnalisisComponent implements OnInit {
         }
       }
     }
+    if(this.sihay==false){
+      this.buscar="";
+      //Dialogo
+      //this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
+      this.estado_Creacion = "empleado_no_encontrado";
+      this.openDialog();
+      return;
+    }
   }
+
   buscarProducto_Nombre(){
     //Para mostrar los empleados, obtenemos el arreglo
     this.datos.obtener_Productos().subscribe((data) => {
@@ -157,6 +179,14 @@ export class AnalisisComponent implements OnInit {
           break;
         }
       }
+    }
+    if(this.sihay2==false){
+      this.buscar2="";
+      //Dialogo
+      //this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
+      this.estado_Creacion = "producto_no_encontrado";
+      this.openDialog();
+      return;
     }
 
   }
@@ -253,5 +283,27 @@ export class AnalisisComponent implements OnInit {
       console.log("Local: ", this.empleados_local);
       console.log(this.empleados);
     });
+  }
+
+  //dialogos de informacion
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmacionComponent, {
+      height: "35%",
+      width: "50%",
+      data: {
+        name: this.name,
+        animal: this.animal,
+        estado: this.estado_Creacion,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+      this.animal = result;
+    });
+  }
+
+  variables_Dialogo(nombre: string, apellido: string) {
+    this.name = nombre;
+    this.animal = apellido;
   }
 }

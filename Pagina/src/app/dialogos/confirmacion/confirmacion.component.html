@@ -136,3 +136,77 @@
     <button mat-button (click)="onNoClick()">OK</button>
   </div>
 </div>
+
+<!----------------------------Dialogos para las consultas-------------------------------->
+<!--Dialogo de producto no encontrado-->
+<div *ngIf="data.estado =='producto_no_encontrado'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> No se ha emcontrado ese producto en la base de datos. Asegurese de incluir mayusculas</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de empleado no encontrado-->
+<div *ngIf="data.estado =='empleado_no_encontrado'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> No se ha emcontrado ese empleado en la base de datos. Asegurese de incluir mayusculas</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+
+<!----------------------------Dialogos para las login-------------------------------->
+<!--Dialogo de producto no encontrado-->
+<div *ngIf="data.estado =='login_error'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> {{data.name}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+
+<!----------------------------Dialogos para registrar-------------------------------->
+<!--Dialogo de producto no encontrado-->
+<div *ngIf="data.estado =='registrar_error'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> {{data.name}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
