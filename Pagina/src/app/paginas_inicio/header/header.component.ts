@@ -4,6 +4,14 @@ import { auth } from "firebase/app";
 import { AuthService } from "../../service/login/auth.service";
 import { Router } from "@angular/router";
 import { CrudService } from "../../service/crud/crud.service";
+import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
+import { MatDialog } from "@angular/material/dialog";
+
+export interface DialogData {
+  animal: string;
+  name: string;
+  estado: string;
+}
 
 @Component({
   selector: "app-header",
@@ -16,6 +24,11 @@ export class HeaderComponent implements OnInit {
   usuario_logueado: string = "0";
   tipo_user: string = "";
   tipo_usuario:string;
+
+  //variables del dialogo
+  animal: string;
+  name: string;
+  estado_Creacion: string = "";
 
   //variables del empleado
   empleados: any; //servicio
@@ -38,7 +51,8 @@ export class HeaderComponent implements OnInit {
     public afAuth: AngularFireAuth,
     private router: Router,
     private authService: AuthService,
-    public crudService: CrudService
+    public crudService: CrudService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -65,11 +79,11 @@ export class HeaderComponent implements OnInit {
     //recuperamos datos
     this.usuario = localStorage.getItem("usuario");
     console.log(this.usuario);
-    this.tipo_usuario = localStorage.getItem("tipo_usuario");
+    this.tipo_user = localStorage.getItem("tipo_usuario");
     //console.log(this.tipo_user);
     this.usuario_logueado = localStorage.getItem("usuario_logueado");
 
-
+/*
     let tipo = "", correo = "";
     for (let i = 0; i < this.empleados_local.length; i++) {
       tipo = this.empleados_local[i]["puesto"];
@@ -79,6 +93,7 @@ export class HeaderComponent implements OnInit {
         return;
       }
     }
+    */
 
   }
 
@@ -87,10 +102,38 @@ export class HeaderComponent implements OnInit {
   };
 
   onLogout() {
+    //Dialogo
+    this.variables_Dialogo("salio", "hola");
+    this.estado_Creacion = "logout";
+    this.openDialog();
+
     this.afAuth.auth.signOut();
+
     localStorage.setItem("usuario", "");
     localStorage.setItem("tipo_usuario", "");
     localStorage.setItem("usuario_logueado", "0");
     //this.router.navigate(["/inicio"]);
+  }
+
+  //dialogos de informacion
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmacionComponent, {
+      height: "35%",
+      width: "50%",
+      data: {
+        name: this.name,
+        animal: this.animal,
+        estado: this.estado_Creacion,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+      this.animal = result;
+    });
+  }
+
+  variables_Dialogo(nombre: string, apellido: string) {
+    this.name = nombre;
+    this.animal = apellido;
   }
 }

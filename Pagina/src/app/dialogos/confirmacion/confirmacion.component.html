@@ -191,6 +191,38 @@
   </div>
 </div>
 
+<div *ngIf="data.estado =='login_bien'" class="dialogo_actualizado">
+  <h1 mat-dialog-title> Bienvenido
+    <span class="material-icons">
+      check_circle_outline
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Ha iniciado secion:</h4>
+    <p> {{data.name}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<div *ngIf="data.estado =='login_bien'" class="dialogo_eliminado">
+  <h1 mat-dialog-title> Regresa pronto
+    <span class="material-icons">
+      check_circle_outline
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Ha terminado su secion:</h4>
+    <p></p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
 
 <!----------------------------Dialogos para registrar-------------------------------->
 <!--Dialogo de producto no encontrado-->

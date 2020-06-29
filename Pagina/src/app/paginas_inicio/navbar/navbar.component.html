@@ -11,7 +11,7 @@
   <a mat-list-item routerLink="/preguntasf" (click)="onSidenavClose()">
     <mat-icon>help_outline</mat-icon> <span class="nav-caption">Preguntas Frecuentes</span>
   </a>
-  <a mat-list-item [matMenuTriggerFor]="appMenu" *ngIf="admin_login">
+  <a mat-list-item [matMenuTriggerFor]="appMenu" *ngIf="tipo_user ==='supervisor'">
     <mat-icon>face</mat-icon> <span class="nav-caption">Admin</span>
   </a>
   <mat-menu #appMenu="matMenu">
@@ -20,7 +20,7 @@
     <button mat-menu-item routerLink="/analisis_a" (click)="onSidenavClose()">Estadisticas</button>
   </mat-menu>
 
-  <a mat-list-item [matMenuTriggerFor]="appMenu1" *ngIf="vendedor_login">
+  <a mat-list-item [matMenuTriggerFor]="appMenu1" *ngIf="tipo_user ==='vendedor'">
     <mat-icon>face</mat-icon> <span class="nav-caption">Vendedor</span>
   </a>
   <mat-menu #appMenu1="matMenu">
@@ -29,7 +29,10 @@
     <button mat-menu-item routerLink="/analisis_v" (click)="onSidenavClose()">Consultas</button>
   </mat-menu>
 
-  <a mat-list-item routerLink="" routerLink="/login" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="" routerLink="/login" (click)="onSidenavClose()" *ngIf="usuario_logueado === '0'">
     <mat-icon>account_circle</mat-icon> <span class="nav-caption">Iniciar Sesion</span>
   </a>
+  <div *ngIf="usuario_logueado === '1'">
+    <a  href="#" (click)="onLogout()">SALIR</a>
+  </div>
 </mat-nav-list>

@@ -43,9 +43,14 @@ export class LoginComponent implements OnInit {
     this.authService
       .loginEmailUser(this.email, this.password)
       .then((res) => {
+        //Dialogo
+        this.variables_Dialogo(this.email, "hola");
+        this.estado_Creacion = "login_bien";
+        this.openDialog();
+        //localestorage
         localStorage.setItem("usuario", this.email);
         localStorage.setItem("usuario_logueado", "1");
-        this.router.navigate(["header"]);
+        //this.router.navigate(["header"]);
       })
       .catch((err) => {
         //Dialogo
@@ -69,7 +74,13 @@ export class LoginComponent implements OnInit {
     this.afAuth.auth
       .signInWithPopup(new auth.GoogleAuthProvider())
       .then((res) => {
-        console.log("resUser", res);
+        /*//Dialogo
+        this.variables_Dialogo("con su cuenta de Google", "hola");
+        this.estado_Creacion = "login_bien";
+        this.openDialog();*/
+        localStorage.setItem("usuario", res.user.email);
+        localStorage.setItem("usuario_logueado", "1");
+        console.log("resUser", res.user.email);
       });
     this.router.navigate(["/inicio"]);
   }
