@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Speech from 'speak-tts';//importamos el lector
+import { CrudService } from "../../service/crud/crud.service";
 
 @Component({
   selector: 'app-inicio',
@@ -8,6 +9,14 @@ import Speech from 'speak-tts';//importamos el lector
 })
 export class InicioComponent implements OnInit {
   members: any[] = [];
+
+  //card
+  productos: any;
+  producto_descripcion: string;
+  producto_marca: string;
+  producto_precio: number;
+  producto_existencia: number;
+
   //localstorage
   usuario: string = "";
   usuario_logueado: string = "0";
@@ -17,7 +26,7 @@ export class InicioComponent implements OnInit {
   result_Lector = '';
   speech: any;
 
-  constructor() {
+  constructor(public crudService:CrudService) {
     //Iniciamos lec de pantalla
     this.speech = new Speech() // will throw an exception if not browser supported
     if(this.speech .hasBrowserSupport()) { // returns a boolean
@@ -74,6 +83,22 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit() {
+    //Para mostrar los prodcutos, obtenemos el arreglo
+    this.crudService.obtener_Productos()
+    .subscribe(data => {
+      this.productos = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          editable:false,
+          descripcion: e.payload.doc.data()['descripcion'],
+          marca: e.payload.doc.data()['marca'],
+          precio: e.payload.doc.data()['precio'],
+          existencia: e.payload.doc.data()['existencia']
+        };
+      })
+      console.log(this.productos);
+    });
+
     //localstorage
      //recuperamos datos
      this.usuario = localStorage.getItem("usuario");
