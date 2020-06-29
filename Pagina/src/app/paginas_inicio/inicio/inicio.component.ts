@@ -7,12 +7,15 @@ import Speech from 'speak-tts';//importamos el lector
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  members:any[] = [];
+  members: any[] = [];
+  //localstorage
+  usuario: string = "";
+  usuario_logueado: string = "0";
+  tipo_user: string = "";
 
   //variables para el lector de pantalla
   result_Lector = '';
   speech: any;
-
 
   constructor() {
     //Iniciamos lec de pantalla
@@ -56,7 +59,7 @@ export class InicioComponent implements OnInit {
       }).then(() => {
           console.log("Exito")
       }).catch(e => {
-          console.error("Ocurrió un error:", e) 
+          console.error("Ocurrió un error:", e)
       })
   }
 
@@ -64,13 +67,21 @@ export class InicioComponent implements OnInit {
   pause(){
     this.speech.pause();
   }
-  
+
   //Renaudamos el lector
   resume(){
     this.speech.resume();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {
+    //localstorage
+     //recuperamos datos
+     this.usuario = localStorage.getItem("usuario");
+     console.log(this.usuario);
+     this.tipo_user = localStorage.getItem("tipo_usuario");
+     //console.log(this.tipo_user);
+     this.usuario_logueado = localStorage.getItem("usuario_logueado");
+     console.log(this.usuario_logueado);
+   }
 
 }

@@ -11,6 +11,60 @@ export class AnalisisComponent implements OnInit {
   productos: any;
   Datos = this.productos;
 
+  //-----------------------------------consultas
+  //empleados
+  empleados: any;
+  empleados_local = [
+    {
+      id: "",
+      editable: "",
+      nombre: "",
+      apellido: "",
+      correo: "",
+      ano: "",
+      puesto: "",
+      salario: "",
+    },
+  ];
+  empleados_encontrados = [
+    {
+      id:  "",
+      editable: "",
+      nombre: "",
+      apellido: "",
+      correo: "",
+      ano: "",
+      puesto: "",
+      salario: "",
+    },
+  ];
+  buscar:string; //input
+  sihay:boolean=false;
+
+  //productos
+  productos_local = [
+    {
+      id:"",
+      descripcion: "",
+      marca: "",
+      precio: "",
+      existencia: ""
+    },
+  ];
+  productos_encontrados = [
+    {
+      id:"",
+      descripcion: "",
+      marca: "",
+      precio: "",
+      existencia: ""
+    },
+  ];
+  buscar2:string; //input
+  sihay2:boolean=false;
+
+
+
   //variables para el lector de pantalla
   result = '';
   speech: any;
@@ -44,6 +98,69 @@ export class AnalisisComponent implements OnInit {
     }
   }//cierra constructor
 
+  //consultas
+  buscarEmpleado_Nombre(){
+    //Para mostrar los empleados, obtenemos el arreglo
+    this.datos.obtener_Empleados().subscribe((data) => {
+      this.empleados = data.map((e) => {
+        return {
+          id: e.payload.doc.id,
+          editable: false,
+          nombre: e.payload.doc.data()["nombre"],
+          apellido: e.payload.doc.data()["apellido"],
+          correo: e.payload.doc.data()["correo"],
+          ano: e.payload.doc.data()["ano"],
+          puesto: e.payload.doc.data()["puesto"],
+          salario: e.payload.doc.data()["salario"],
+        };
+      });
+      //obtenemos la variable de forma local
+      this.empleados_local = this.empleados;
+      console.log("Local: ", this.empleados_local);
+      console.log(this.empleados);
+    });
+    this.sihay=false;
+
+    for(let i =0; i<this.empleados_local.length; i++){
+      if(this.buscar === this.empleados_local[i]['nombre']){
+        for(let j=0; j<=i; j++){
+          this.sihay=true;
+          this.empleados_encontrados[j] = this.empleados_local[i];
+          break;
+        }
+      }
+    }
+  }
+  buscarProducto_Nombre(){
+    //Para mostrar los empleados, obtenemos el arreglo
+    this.datos.obtener_Productos().subscribe((data) => {
+      this.productos = data.map((e) => {
+        return {
+          id: e.payload.doc.id,
+          editable: false,
+          descripcion: e.payload.doc.data()["descripcion"],
+          marca: e.payload.doc.data()["marca"],
+          precio: e.payload.doc.data()["precio"],
+          existencia: e.payload.doc.data()["existencia"],
+        };
+      });
+      //obtenemos la variable de forma local
+      this.productos_local = this.productos;
+    });
+    this.sihay2=false;
+
+    for(let i =0; i<this.productos_local.length; i++){
+      if(this.buscar2 == this.productos_local[i]['descripcion']){
+        for(let j=0; j<=i; j++){
+          this.sihay2=true;
+          this.productos_encontrados[j] = this.productos_local[i];
+          break;
+        }
+      }
+    }
+
+  }
+
   //comenzar lector
   start(){
     var temporalDivElement = document.createElement("div");
@@ -57,7 +174,7 @@ export class AnalisisComponent implements OnInit {
       }).then(() => {
           console.log("Exito")
       }).catch(e => {
-          console.error("Ocurrió un error:", e) 
+          console.error("Ocurrió un error:", e)
       })
   }
 
@@ -65,7 +182,7 @@ export class AnalisisComponent implements OnInit {
   pause(){
     this.speech.pause();
   }
-  
+
   //Renaudamos el lector
   resume(){
     this.speech.resume();
@@ -93,8 +210,11 @@ export class AnalisisComponent implements OnInit {
       backgroundColor: "rgba(220,220,220,0.5)",
     },
   ];
+
   arreglo: any = [];
   ngOnInit(): void {
+    //this.sihay=false;
+    //productos
     this.datos.obtener_Productos().subscribe((data) => {
       this.productos = data.map((e) => {
         return {
@@ -106,11 +226,32 @@ export class AnalisisComponent implements OnInit {
           existencia: e.payload.doc.data()["existencia"],
         };
       });
+      //graficas
       for (let i = 0; this.productos; i++) {
-        this.barChartLabels[i] = this.productos[i].descripcion;
-        this.barChartData[0].data[i] = this.productos[i].existencia;
+        this.barChartLabels[i] = this.productos[i]["descripcion"];
+        this.barChartData[0].data[i] = this.productos[i]["existencia"];
       }
       //this.barChartData.data=this.arreglo;
+    });
+
+    //empleados
+    this.datos.obtener_Empleados().subscribe((data) => {
+      this.empleados = data.map((e) => {
+        return {
+          id: e.payload.doc.id,
+          editable: false,
+          nombre: e.payload.doc.data()["nombre"],
+          apellido: e.payload.doc.data()["apellido"],
+          correo: e.payload.doc.data()["correo"],
+          ano: e.payload.doc.data()["ano"],
+          puesto: e.payload.doc.data()["puesto"],
+          salario: e.payload.doc.data()["salario"],
+        };
+      });
+      //obtenemos la variable de forma local
+      this.empleados_local = this.empleados;
+      console.log("Local: ", this.empleados_local);
+      console.log(this.empleados);
     });
   }
 }
