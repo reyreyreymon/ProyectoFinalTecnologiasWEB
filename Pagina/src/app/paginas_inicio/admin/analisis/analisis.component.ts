@@ -76,8 +76,6 @@ export class AnalisisComponent implements OnInit {
   buscar2:string; //input
   sihay2:boolean=false;
 
-
-
   //variables para el lector de pantalla
   result = '';
   speech: any;
@@ -139,7 +137,6 @@ export class AnalisisComponent implements OnInit {
         for(let j=0; j<=i; j++){
           this.sihay=true;
           this.empleados_encontrados[j] = this.empleados_local[i];
-          break;
         }
       }
     }
@@ -176,7 +173,6 @@ export class AnalisisComponent implements OnInit {
         for(let j=0; j<=i; j++){
           this.sihay2=true;
           this.productos_encontrados[j] = this.productos_local[i];
-          break;
         }
       }
     }

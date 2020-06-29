@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { CrudService } from "../../../service/crud/crud.service";
 import Speech from 'speak-tts';//importamos el lector
+import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
+import { MatDialog } from "@angular/material/dialog";
+
+export interface DialogData {
+  animal: string;
+  name: string;
+  estado: string;
+}
 
 @Component({
   selector: 'app-analisis-v',
@@ -11,7 +20,38 @@ export class AnalisisVComponent implements OnInit {
   result_Lector = '';
   speech: any;
 
-  constructor() {
+  //variables del dialogo
+  animal: string;
+  name: string;
+  estado_Creacion: string = "";
+
+   //productos
+   productos:any;
+   productos_local = [
+    {
+      id:"",
+      descripcion: "",
+      marca: "",
+      precio: "",
+      existencia: ""
+    },
+  ];
+  productos_encontrados = [
+    {
+      id:"",
+      descripcion: "",
+      marca: "",
+      precio: "",
+      existencia: ""
+    },
+  ];
+  buscar2:string; //input
+  sihay2:boolean=false;
+  buscar1:string; //input
+  sihay1:boolean=false;
+
+
+  constructor(public datos: CrudService, public dialog: MatDialog) {
     //Iniciamos lec de pantalla
     this.speech = new Speech() // will throw an exception if not browser supported
     if(this.speech .hasBrowserSupport()) { // returns a boolean
@@ -53,7 +93,7 @@ export class AnalisisVComponent implements OnInit {
       }).then(() => {
           console.log("Exito")
       }).catch(e => {
-          console.error("Ocurrió un error:", e) 
+          console.error("Ocurrió un error:", e)
       })
   }
 
@@ -61,13 +101,109 @@ export class AnalisisVComponent implements OnInit {
   pause(){
     this.speech.pause();
   }
-  
+
   //Renaudamos el lector
   resume(){
     this.speech.resume();
   }
-  
+
   ngOnInit(): void {
+  }
+
+  buscarProducto_Nombre(){
+    //Para mostrar los empleados, obtenemos el arreglo
+    this.datos.obtener_Productos().subscribe((data) => {
+      this.productos = data.map((e) => {
+        return {
+          id: e.payload.doc.id,
+          editable: false,
+          descripcion: e.payload.doc.data()["descripcion"],
+          marca: e.payload.doc.data()["marca"],
+          precio: e.payload.doc.data()["precio"],
+          existencia: e.payload.doc.data()["existencia"],
+        };
+      });
+      //obtenemos la variable de forma local
+      this.productos_local = this.productos;
+    });
+    this.sihay2=false;
+
+    for(let i =0; i<this.productos_local.length; i++){
+      if(this.buscar2 == this.productos_local[i]['descripcion']){
+        for(let j=0; j<=i; j++){
+          this.sihay2=true;
+          this.productos_encontrados[j] = this.productos_local[i];
+        }
+      }
+    }
+    if(this.sihay2==false){
+      this.buscar2="";
+      //Dialogo
+      //this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
+      this.estado_Creacion = "producto_no_encontrado";
+      this.openDialog();
+      return;
+    }
+
+  }
+
+  buscarProducto_Marca(){
+    //Para mostrar los empleados, obtenemos el arreglo
+    this.datos.obtener_Productos().subscribe((data) => {
+      this.productos = data.map((e) => {
+        return {
+          id: e.payload.doc.id,
+          editable: false,
+          descripcion: e.payload.doc.data()["descripcion"],
+          marca: e.payload.doc.data()["marca"],
+          precio: e.payload.doc.data()["precio"],
+          existencia: e.payload.doc.data()["existencia"],
+        };
+      });
+      //obtenemos la variable de forma local
+      this.productos_local = this.productos;
+    });
+    this.sihay1=false;
+
+    for(let i =0; i<this.productos_local.length; i++){
+      if(this.buscar1 == this.productos_local[i]['marca']){
+        for(let j=0; j<=i; j++){
+          this.sihay1=true;
+          this.productos_encontrados[j] = this.productos_local[i];
+        }
+      }
+    }
+    if(this.sihay1==false){
+      this.buscar1="";
+      //Dialogo
+      //this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
+      this.estado_Creacion = "producto_no_encontrado";
+      this.openDialog();
+      return;
+    }
+
+  }
+
+  //dialogos de informacion
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmacionComponent, {
+      height: "35%",
+      width: "50%",
+      data: {
+        name: this.name,
+        animal: this.animal,
+        estado: this.estado_Creacion,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+      this.animal = result;
+    });
+  }
+
+  variables_Dialogo(nombre: string, apellido: string) {
+    this.name = nombre;
+    this.animal = apellido;
   }
 
 }
