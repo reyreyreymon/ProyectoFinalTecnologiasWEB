@@ -49,6 +49,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.component';
 import { RegistrarComponent } from './paginas_inicio/registrar/registrar.component';
 import { LoadingComponent } from './paginas_inicio/loading/loading.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { LoadingComponent } from './paginas_inicio/loading/loading.component';
     HttpClientModule,
     ChartsModule,
     AngularFireStorageModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
     ],
   providers: [CrudService, MessService, AngularFireAuth, AngularFirestore ],
