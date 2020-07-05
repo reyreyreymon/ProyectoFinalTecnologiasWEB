@@ -34,7 +34,10 @@
   <section class="baner">
     <h2>Descuentos actuales</h2>
   </section>
-
+    
+  <div class="mt-3">
+    <app-loading *ngIf="banderaLoading"></app-loading>
+  </div>
   <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px" class="des">
     <mat-card fxFlex="calc(20%-25px)" fxFlex.sm="calc(33%-25px)" *ngFor="let item of productos">
       <div mat-card-avatar class="example-header-image"></div>

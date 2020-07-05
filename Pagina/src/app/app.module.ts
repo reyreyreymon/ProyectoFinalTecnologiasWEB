@@ -48,6 +48,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 //Dialogos
 import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.component';
 import { RegistrarComponent } from './paginas_inicio/registrar/registrar.component';
+import { LoadingComponent } from './paginas_inicio/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { RegistrarComponent } from './paginas_inicio/registrar/registrar.compone
     AnalisisVComponent,
     ConfirmacionComponent,
     LoginComponent,
-    RegistrarComponent
+    RegistrarComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

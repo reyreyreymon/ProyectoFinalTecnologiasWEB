@@ -25,6 +25,7 @@ export class InicioComponent implements OnInit {
   //variables para el lector de pantalla
   result_Lector = '';
   speech: any;
+  banderaLoading: boolean;
 
   constructor(public crudService:CrudService) {
     //Iniciamos lec de pantalla
@@ -84,6 +85,7 @@ export class InicioComponent implements OnInit {
 
   ngOnInit() {
     //Para mostrar los prodcutos, obtenemos el arreglo
+    this.banderaLoading = true;
     this.crudService.obtener_Productos()
     .subscribe(data => {
       this.productos = data.map(e => {
@@ -95,7 +97,8 @@ export class InicioComponent implements OnInit {
           precio: e.payload.doc.data()['precio'],
           existencia: e.payload.doc.data()['existencia']
         };
-      })
+      });
+      this.banderaLoading = false;
       console.log(this.productos);
     });
 

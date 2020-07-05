@@ -7,6 +7,6 @@ export class MessService {
 
   constructor(private http: HttpClient) { }
   enviarMensaje(body) {
-    return this.http.post('http://localhost:3000/formulario', body);
+    return this.http.post('https://us-central1-mi-tiendita-fbc69.cloudfunctions.net/app', body);
     }
 }

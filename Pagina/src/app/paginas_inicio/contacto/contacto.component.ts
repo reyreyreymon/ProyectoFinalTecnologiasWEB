@@ -14,6 +14,9 @@ export class ContactoComponent implements OnInit {
   speech: any;
 
   form;
+  bandera = false;
+  bandera2 = false;
+  bandera3: boolean;
   constructor(private formBuilder: FormBuilder, private mensajeService: MessService){
     this.form = formBuilder.group({
       firstname: ['', Validators.required],
@@ -82,13 +85,18 @@ export class ContactoComponent implements OnInit {
 
   submit() {
     if (this.form.valid){
+      this.bandera3 = true;
       console.log(this.form.value);
       this.mensajeService.enviarMensaje(this.form.value).subscribe(() => {
         console.log("Correo enviado");
+        this.bandera = false;
+        this.bandera2 = true;
+        this.bandera3 = false;
+        this.form.reset();
     });
-    console.log("Sali");
+      console.log("Sali");
     } else {
-      alert('Llena todos los campos');
+      this.bandera = true;
     }
   }
 
