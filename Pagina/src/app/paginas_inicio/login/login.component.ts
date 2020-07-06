@@ -1,3 +1,4 @@
+import { ObsService } from './../../service/obs/obs.service';
 import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from "firebase/app";
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public dialog: MatDialog,
-    public crud: CrudService
+    public crud: CrudService,
+    private abs: ObsService
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +101,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("tipo_usuario", nivel);
           localStorage.setItem("usuario", this.email);
           localStorage.setItem("usuario_logueado", "1");
+          this.abs.actuliza$.emit(this.email);
+          this.router.navigate(["inicio"]);
         }else{
           alert("no hay");
         }
@@ -122,6 +126,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("usuario", res.user.email);
         localStorage.setItem("usuario_logueado", "1");
         console.log("resUser", res.user.email);
+        this.abs.actuliza$.emit(res.user.email);
       });
     this.router.navigate(["/inicio"]);
   }

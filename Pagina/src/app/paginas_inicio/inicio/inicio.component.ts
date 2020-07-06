@@ -1,6 +1,8 @@
+import { ObsService } from './../../service/obs/obs.service';
 import { Component, OnInit } from '@angular/core';
 import Speech from 'speak-tts';//importamos el lector
 import { CrudService } from "../../service/crud/crud.service";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -27,7 +29,13 @@ export class InicioComponent implements OnInit {
   speech: any;
   banderaLoading: boolean;
 
-  constructor(public crudService:CrudService) {
+  constructor(public crudService:CrudService , public activatedRoute: ActivatedRoute, private abs: ObsService) {
+    this.activatedRoute.params.subscribe( params => {
+      if ( params['id'] === '0'){
+        localStorage.setItem("usuario_logueado", "0");
+        this.usuario_logueado = '0';
+      }
+    });
     //Iniciamos lec de pantalla
     this.speech = new Speech() // will throw an exception if not browser supported
     if(this.speech .hasBrowserSupport()) { // returns a boolean
@@ -84,6 +92,7 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.abs.actuliza$.emit("");
     //Para mostrar los prodcutos, obtenemos el arreglo
     this.banderaLoading = true;
     this.crudService.obtener_Productos()

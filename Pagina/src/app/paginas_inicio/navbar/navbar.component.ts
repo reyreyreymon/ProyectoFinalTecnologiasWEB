@@ -1,3 +1,4 @@
+import { ObsService } from './../../service/obs/obs.service';
 import { Router } from "@angular/router";
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
@@ -21,9 +22,10 @@ export class NavbarComponent implements OnInit {
 
   //localstorage
   usuario: string = "";
-  usuario_logueado: string = "0";
+  usuario_logueado: string = "2";
   tipo_user: string = "";
   tipo_usuario: string;
+  usuarioL: string;
 
   //variables del dialogo
   animal: string;
@@ -37,17 +39,19 @@ export class NavbarComponent implements OnInit {
     public dialog: MatDialog,
     public afAuth: AngularFireAuth,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private observa: ObsService
   ) {}
 
   ngOnInit() {
-    //localstorage
-    //recuperamos datos
-    this.usuario = localStorage.getItem("usuario");
-    console.log(this.usuario);
-    this.tipo_user = localStorage.getItem("tipo_usuario");
-    //console.log(this.tipo_user);
-    this.usuario_logueado = localStorage.getItem("usuario_logueado");
+    this.observa.actuliza$.subscribe( data => {
+      //localstorage
+      //recuperamos datos
+      this.usuarioL = data;
+      this.usuario = localStorage.getItem("usuario");
+      this.tipo_user = localStorage.getItem("tipo_usuario");
+      this.usuario_logueado = localStorage.getItem("usuario_logueado");
+   });
   }
 
   public onSidenavClose = () => {
@@ -64,6 +68,7 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem("usuario", "");
     localStorage.setItem("tipo_usuario", "");
     localStorage.setItem("usuario_logueado", "0");
+    this.observa.actuliza$.emit("");
     //this.router.navigate(["/inicio"]);
   }
 

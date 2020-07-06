@@ -1,3 +1,4 @@
+import { ObsService } from './../../service/obs/obs.service';
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from "firebase/app";
@@ -21,7 +22,7 @@ export interface DialogData {
 export class HeaderComponent implements OnInit {
   //localstorage
   usuario: string = "";
-  usuario_logueado: string = "0";
+  usuario_logueado: string = "2";
   tipo_user: string = "";
   tipo_usuario:string;
 
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit {
   animal: string;
   name: string;
   estado_Creacion: string = "";
+  usuarioL: string;
 
   //variables del empleado
   empleados: any; //servicio
@@ -52,7 +54,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public crudService: CrudService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private obse: ObsService
   ) {}
 
   ngOnInit() {
@@ -75,13 +78,14 @@ export class HeaderComponent implements OnInit {
       console.log(this.empleados);
     });
 
-    //localstorage
-    //recuperamos datos
-    this.usuario = localStorage.getItem("usuario");
-    console.log(this.usuario);
-    this.tipo_user = localStorage.getItem("tipo_usuario");
-    //console.log(this.tipo_user);
-    this.usuario_logueado = localStorage.getItem("usuario_logueado");
+    this.obse.actuliza$.subscribe( data => {
+      //localstorage
+      //recuperamos datos
+      this.usuarioL = data;
+      this.usuario = localStorage.getItem("usuario");
+      this.tipo_user = localStorage.getItem("tipo_usuario");
+      this.usuario_logueado = localStorage.getItem("usuario_logueado");
+   });
 
 /*
     let tipo = "", correo = "";
@@ -112,6 +116,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("usuario", "");
     localStorage.setItem("tipo_usuario", "");
     localStorage.setItem("usuario_logueado", "0");
+    this.obse.actuliza$.emit("");
     //this.router.navigate(["/inicio"]);
   }
 
