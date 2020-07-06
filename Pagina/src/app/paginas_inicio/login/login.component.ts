@@ -62,33 +62,15 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  /*
-  onLoginGoogle(){
-    this.authService.loginGoogleUser().then((res)=>{
-      console.log('resUser',res);
-      this.router.navigate(['admin/list-books']);
-    }).catch(err => console.log('err', err));
-  }
-*/
   onLoginGoogle() {
     this.afAuth.auth
       .signInWithPopup(new auth.GoogleAuthProvider())
       .then((res) => {
-        /*//Dialogo
-        this.variables_Dialogo("con su cuenta de Google", "hola");
-        this.estado_Creacion = "login_bien";
-        this.openDialog();*/
         localStorage.setItem("usuario", res.user.email);
         localStorage.setItem("usuario_logueado", "1");
         console.log("resUser", res.user.email);
       });
     this.router.navigate(["/inicio"]);
-  }
-
-  onLogout() {
-    this.afAuth.auth.signOut();
-    localStorage.setItem("usuario", "");
-    localStorage.setItem("tipo_usuario", "");
   }
 
   //dialogos de informacion

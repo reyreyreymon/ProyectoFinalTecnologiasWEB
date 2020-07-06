@@ -108,9 +108,6 @@ export class AnalisisVComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  buscarProducto_Nombre(){
     //Para mostrar los empleados, obtenemos el arreglo
     this.datos.obtener_Productos().subscribe((data) => {
       this.productos = data.map((e) => {
@@ -127,56 +124,40 @@ export class AnalisisVComponent implements OnInit {
       this.productos_local = this.productos;
     });
     this.sihay2=false;
+  }
 
+
+  buscarProducto_Nombre(){
+    this.sihay2=false;
+    let j=0;
     for(let i =0; i<this.productos_local.length; i++){
+      console.log("Consultas: ", this.buscar2, " ? ", this.productos_local[i]['descripcion']);
       if(this.buscar2 == this.productos_local[i]['descripcion']){
-        for(let j=0; j<=i; j++){
           this.sihay2=true;
-          this.productos_encontrados[j] = this.productos_local[i];
-        }
+          this.productos_encontrados[j++] = this.productos_local[i];
       }
     }
     if(this.sihay2==false){
       this.buscar2="";
       //Dialogo
-      //this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
       this.estado_Creacion = "producto_no_encontrado";
       this.openDialog();
       return;
     }
-
   }
 
   buscarProducto_Marca(){
-    //Para mostrar los empleados, obtenemos el arreglo
-    this.datos.obtener_Productos().subscribe((data) => {
-      this.productos = data.map((e) => {
-        return {
-          id: e.payload.doc.id,
-          editable: false,
-          descripcion: e.payload.doc.data()["descripcion"],
-          marca: e.payload.doc.data()["marca"],
-          precio: e.payload.doc.data()["precio"],
-          existencia: e.payload.doc.data()["existencia"],
-        };
-      });
-      //obtenemos la variable de forma local
-      this.productos_local = this.productos;
-    });
     this.sihay1=false;
-
+    let j=0;
     for(let i =0; i<this.productos_local.length; i++){
       if(this.buscar1 == this.productos_local[i]['marca']){
-        for(let j=0; j<=i; j++){
           this.sihay1=true;
-          this.productos_encontrados[j] = this.productos_local[i];
-        }
+          this.productos_encontrados[j++] = this.productos_local[i];
       }
     }
     if(this.sihay1==false){
       this.buscar1="";
       //Dialogo
-      //this.variables_Dialogo(this.empleado_nombe, this.empleado_apellido);
       this.estado_Creacion = "producto_no_encontrado";
       this.openDialog();
       return;
