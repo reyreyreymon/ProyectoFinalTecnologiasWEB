@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudService } from "../../../service/crud/crud.service";
-import Speech from 'speak-tts';//importamos el lector
+import Speech from "speak-tts"; //importamos el lector
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
 import { MatDialog } from "@angular/material/dialog";
 
@@ -41,7 +41,7 @@ export class AnalisisComponent implements OnInit {
   ];
   empleados_encontrados = [
     {
-      id:  "",
+      id: "",
       editable: "",
       nombre: "",
       apellido: "",
@@ -51,76 +51,80 @@ export class AnalisisComponent implements OnInit {
       salario: "",
     },
   ];
-  buscar:string; //input
-  sihay:boolean=false;
+  buscar: string; //input
+  sihay: boolean = false;
 
   //productos
   productos_local = [
     {
-      id:"",
+      id: "",
       descripcion: "",
       marca: "",
       precio: "",
-      existencia: ""
+      existencia: "",
     },
   ];
   productos_encontrados = [
     {
-      id:"",
+      id: "",
       descripcion: "",
       marca: "",
       precio: "",
-      existencia: ""
+      existencia: "",
     },
   ];
-  buscar2:string; //input
-  sihay2:boolean=false;
+  buscar2: string; //input
+  sihay2: boolean = false;
 
   //variables para el lector de pantalla
-  result = '';
+  result = "";
   speech: any;
 
   constructor(public datos: CrudService, public dialog: MatDialog) {
     //Iniciamos lec de pantalla
-    this.speech = new Speech() // will throw an exception if not browser supported
-    if(this.speech .hasBrowserSupport()) { // returns a boolean
-        console.log("speech synthesis supported")
-        this.speech.init({
-                'volume': 1,
-                'lang': 'es-MX',
-                'rate': 1,
-                'pitch': 1,
-                'voice':'Google UK English Male',
-                'splitSentences': true,
-                'listeners': {
-                    'onvoiceschanged': (voices) => {
-                        console.log("Event voiceschanged", voices)
-                    }
-                }
-        }).then((data) => {
-            // The "data" object contains the list of available voices and the voice synthesis params
-            console.log("Lector está listo", data)
-            data.voices.forEach(voice => {
-            console.log(voice.name + " "+ voice.lang)
-            });
-        }).catch(e => {
-            console.error("Ocurrió un error al inicializar: ", e)
+    this.speech = new Speech(); // will throw an exception if not browser supported
+    if (this.speech.hasBrowserSupport()) {
+      // returns a boolean
+      console.log("speech synthesis supported");
+      this.speech
+        .init({
+          volume: 1,
+          lang: "es-MX",
+          rate: 1,
+          pitch: 1,
+          voice: "Google UK English Male",
+          splitSentences: true,
+          listeners: {
+            onvoiceschanged: (voices) => {
+              console.log("Event voiceschanged", voices);
+            },
+          },
         })
+        .then((data) => {
+          // The "data" object contains the list of available voices and the voice synthesis params
+          console.log("Lector está listo", data);
+          data.voices.forEach((voice) => {
+            console.log(voice.name + " " + voice.lang);
+          });
+        })
+        .catch((e) => {
+          console.error("Ocurrió un error al inicializar: ", e);
+        });
     }
-  }//cierra constructor
+  } //cierra constructor
 
   //consultas
-  buscarEmpleado_Nombre(){
-    this.sihay=false;
-    let j=0;
-    for(let i =0; i<this.empleados_local.length; i++){
-      if(this.buscar === this.empleados_local[i]['nombre']){
-          this.sihay=true;
-          this.empleados_encontrados[j++] = this.empleados_local[i];
+  buscarEmpleado_Nombre() {
+    this.sihay = false;
+    let j = 0;
+    for (let i = 0; i < this.empleados_local.length; i++) {
+      if (this.buscar === this.empleados_local[i]["nombre"]) {
+        this.sihay = true;
+        this.empleados_encontrados[j++] = this.empleados_local[i];
       }
     }
-    if(this.sihay==false){
-      this.buscar="";
+    if (this.sihay == false) {
+      this.buscar = "";
       //Dialogo
       this.estado_Creacion = "empleado_no_encontrado";
       this.openDialog();
@@ -128,18 +132,18 @@ export class AnalisisComponent implements OnInit {
     }
   }
 
-  buscarProducto_Nombre(){
-    this.sihay2=false;
-    let j=0;
-    for(let i =0; i<this.productos_local.length; i++){
+  buscarProducto_Nombre() {
+    this.sihay2 = false;
+    let j = 0;
+    for (let i = 0; i < this.productos_local.length; i++) {
       //console.log("Consultas: ", this.buscar2, " ? ", this.productos_local[i]['descripcion']);
-      if(this.buscar2 == this.productos_local[i]['descripcion']){
-          this.sihay2=true;
-          this.productos_encontrados[j++] = this.productos_local[i];
+      if (this.buscar2 == this.productos_local[i]["descripcion"]) {
+        this.sihay2 = true;
+        this.productos_encontrados[j++] = this.productos_local[i];
       }
     }
-    if(this.sihay2==false){
-      this.buscar2="";
+    if (this.sihay2 == false) {
+      this.buscar2 = "";
       //Dialogo
       this.estado_Creacion = "producto_no_encontrado";
       this.openDialog();
@@ -148,32 +152,38 @@ export class AnalisisComponent implements OnInit {
   }
 
   //comenzar lector
-  start(){
+  start() {
     var temporalDivElement = document.createElement("div");
     //leemos lo que esta en el id readNow
     temporalDivElement.innerHTML = document.getElementById("readNow").innerHTML;
     //validamos cualquier tipo de texto (con estilos o no)
-    this.result = temporalDivElement.textContent || temporalDivElement.innerText || "";
+    this.result =
+      temporalDivElement.textContent || temporalDivElement.innerText || "";
 
-      this.speech.speak({
-          text: this.result,
-      }).then(() => {
-          console.log("Exito")
-      }).catch(e => {
-          console.error("Ocurrió un error:", e)
+    this.speech
+      .speak({
+        text: this.result,
       })
+      .then(() => {
+        console.log("Exito");
+      })
+      .catch((e) => {
+        console.error("Ocurrió un error:", e);
+      });
   }
 
   //detener lector
-  pause(){
+  pause() {
     this.speech.pause();
   }
 
   //Renaudamos el lector
-  resume(){
+  resume() {
     this.speech.resume();
   }
-info:string;
+
+  info: string;
+
   barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -198,6 +208,7 @@ info:string;
   ];
 
   arreglo: any = [];
+
   ngOnInit(): void {
     //this.sihay=false;
     //productos
@@ -218,11 +229,19 @@ info:string;
       for (let i = 0; this.productos; i++) {
         this.barChartLabels[i] = this.productos[i]["descripcion"];
         this.barChartData[0].data[i] = this.productos[i]["existencia"];
-        if(i<=5){
-        this.info+="\nid: "+this.productos[i].id+"\ndescripcion:"+
-        this.productos[i].descripcion+" \nmarca:"+this.productos[i].marca+
-        "\nprecio:"+this.productos[i].precio+" \nexistencia: "+this.productos[i].existencia+
-        "\n------------------\n";
+        if (i <= 5) {
+          this.info +=
+            "\nid: " +
+            this.productos[i].id +
+            "\ndescripcion:" +
+            this.productos[i].descripcion +
+            " \nmarca:" +
+            this.productos[i].marca +
+            "\nprecio:" +
+            this.productos[i].precio +
+            " \nexistencia: " +
+            this.productos[i].existencia +
+            "\n------------------\n";
         }
       }
       //this.barChartData.data=this.arreglo;
