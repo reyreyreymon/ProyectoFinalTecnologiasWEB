@@ -84,7 +84,7 @@
               Puesto: {{item.puesto}}
             </div>
             <div class="card-subtitle">
-              Salario: {{item.salario}}
+              Salario: {{item.salario | letras}}
             </div>
             <span class="align-content-between">
               <a (click)="editarEmpledao(item)" class="btn btn-primary text-light m-1"><i class="fa fa-pencil"></i></a>

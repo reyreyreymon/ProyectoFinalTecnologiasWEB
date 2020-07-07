@@ -50,6 +50,7 @@ import { ConfirmacionComponent } from './dialogos/confirmacion/confirmacion.comp
 import { RegistrarComponent } from './paginas_inicio/registrar/registrar.component';
 import { LoadingComponent } from './paginas_inicio/loading/loading.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LetrasPipe } from './pipes/letras.pipe';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ConfirmacionComponent,
     LoginComponent,
     RegistrarComponent,
-    LoadingComponent
+    LoadingComponent,
+    LetrasPipe
   ],
   imports: [
     BrowserModule,
