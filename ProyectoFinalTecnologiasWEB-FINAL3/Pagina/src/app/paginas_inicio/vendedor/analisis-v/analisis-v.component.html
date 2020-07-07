@@ -1,0 +1,157 @@
+<div class="text-right">
+  <button class="btn btn-light ml-10" style="font-size: 30px;" (click)="start()"><i class="fa fa-play-circle"></i></button>
+  <button class="btn btn-light ml-10" style="font-size: 30px;" (click)="pause()"><i class="fa fa-pause-circle"></i></button>
+  <button class="btn btn-light ml-10" style="font-size: 30px;" (click)="resume()"><i class="fa fa-reply"></i></button>
+</div>
+
+<div id="readNow"><!--abre div del lector-->
+  <div class="container p-2">
+    <h2 class="text-center">CONSULTAS</h2>
+  </div>
+
+   <!--Para productos-->
+   <div class="empleado m-3">
+    <!--Formulario de altas-->
+    <h2>Busqueda por nombre del producto</h2>
+    <div class="card p-3 ">
+      <form (ngSubmit)="buscarProducto_Nombre()" align="center">
+        <h3 class="text-center">
+          <span class="material-icons">search</span>
+          Descripcion del producto:
+        </h3>
+        <mat-form-field appearance="legacy">
+          <input matInput class="form-control" name="buscar2" [(ngModel)]="buscar2" placeholder="Descripcion"
+            required>
+        </mat-form-field>
+        <br>
+        <div class="example-button-container">
+          <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </form>
+
+      <!--Modo editable desactivado, mostrando todos los elelmentos-->
+      <div class="row w-75 m-2" *ngIf="sihay2">
+        <div class="col-md-3 mb-2" *ngFor="let item of productos_encontrados1">
+          <div class="card text-left">
+            <div class="card-body">
+              <div class="card-title">
+                Descripcion: {{item.descripcion}}
+              </div>
+              <div class="card-title">
+                Marca: {{item.marca}}
+              </div>
+              <div class="card-title">
+                Precio: {{item.precio}}
+              </div>
+              <div class="card-title">
+                Existencia: {{item.existencia}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!--Para productos-->
+   <div class="empleado m-3">
+    <!--Formulario de altas-->
+    <h2>Busqueda por marca del producto</h2>
+    <div class="card p-3 ">
+      <form (ngSubmit)="buscarProducto_Marca()" align="center">
+        <h3 class="text-center">
+          <span class="material-icons">search</span>
+          Marca del producto:
+        </h3>
+        <mat-form-field appearance="legacy">
+          <input matInput class="form-control" name="buscar1" [(ngModel)]="buscar1" placeholder="Descripcion"
+            required>
+        </mat-form-field>
+        <br>
+        <div class="example-button-container">
+          <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </form>
+
+      <!--Modo editable desactivado, mostrando todos los elelmentos-->
+      <div class="row w-75 m-2" *ngIf="sihay1">
+        <div class="col-md-3 mb-2" *ngFor="let item of productos_encontrados2">
+          <div class="card text-left">
+            <div class="card-body">
+              <div class="card-title">
+                Descripcion: {{item.descripcion}}
+              </div>
+              <div class="card-title">
+                Marca: {{item.marca}}
+              </div>
+              <div class="card-title">
+                Precio: {{item.precio}}
+              </div>
+              <div class="card-title">
+                Existencia: {{item.existencia}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Para precio productos-->
+  <div class="empleado m-3">
+    <!--Formulario de altas-->
+
+    <div class="card p-3 ">
+      <form (ngSubmit)="buscarProducto_Existencia()" align="center">
+        <h2 class="text-center">
+          <span class="material-icons">search</span>
+          Buscar por rango de existencia de productos:
+        </h2>
+        <mat-form-field appearance="legacy">
+          <input type="number" matInput class="form-control" name="buscar3" [(ngModel)]="buscar3"
+            placeholder="Existencia menor" required>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+          <input type="number" matInput class="form-control" name="buscar4" [(ngModel)]="buscar4"
+            placeholder="Existencia mayor" required>
+        </mat-form-field>
+        <br>
+        <div class="example-button-container">
+          <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </form>
+
+      <!--Modo editable desactivado, mostrando todos los elelmentos-->
+      <div class="row w-75 m-2" *ngIf="sihay3">
+        <div class="col-md-3 mb-2" *ngFor="let item of productos_encontrados">
+          <div class="card text-left">
+            <div class="card-body">
+              <div class="card-title">
+                Descripcion: {{item.descripcion}}
+              </div>
+              <div class="card-title">
+                Marca: {{item.marca}}
+              </div>
+              <div class="card-title">
+                Precio: {{item.precio}}
+              </div>
+              <div class="card-title">
+                Existencia: {{item.existencia}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div><!--cierra div del lector-->
+
