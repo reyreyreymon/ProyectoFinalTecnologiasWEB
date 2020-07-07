@@ -8,6 +8,7 @@ import { finalize } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface DialogData {
   animal: string;
@@ -37,13 +38,14 @@ export class RegistrarComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public afAuth: AngularFireAuth,
-    private storage: AngularFireStorage,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
   //método para agregar un usuario
   onAddUser() {
+    //this._snackBar.open("jola", "joli",{duration:2000});
     if (this.password === this.password2) {
       this.authService
         .registerUser(this.email, this.password)
@@ -70,7 +72,7 @@ export class RegistrarComponent implements OnInit {
         })
         .catch((err) => {
           //Dialogo
-          this.variables_Dialogo(err, "hola");
+          this.variables_Dialogo(err.message, "hola");
           this.estado_Creacion = "registrar_error";
           this.openDialog();
           console.log("err", err.message);

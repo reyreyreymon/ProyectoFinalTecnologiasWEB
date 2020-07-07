@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from "firebase/app";
 import { AuthService } from "../../service/login/auth.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
   animal: string;
@@ -40,7 +41,8 @@ export class NavbarComponent implements OnInit {
     public afAuth: AngularFireAuth,
     private router: Router,
     private authService: AuthService,
-    private observa: ObsService
+    private observa: ObsService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -58,18 +60,12 @@ export class NavbarComponent implements OnInit {
     this.sidenavClose.emit();
   };
   onLogout() {
-    //Dialogo
-    this.variables_Dialogo("salio", "hola");
-    this.estado_Creacion = "logout";
-    this.openDialog();
-
     this.afAuth.auth.signOut();
-
     localStorage.setItem("usuario", "");
     localStorage.setItem("tipo_usuario", "");
     localStorage.setItem("usuario_logueado", "0");
     this.observa.actuliza$.emit("");
-    //this.router.navigate(["/inicio"]);
+    this._snackBar.open("Regresa Pronto", "Adios!",{duration:2000});
   }
 
   //dialogos de informacion

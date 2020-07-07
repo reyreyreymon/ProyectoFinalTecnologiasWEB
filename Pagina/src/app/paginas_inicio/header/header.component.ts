@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { CrudService } from "../../service/crud/crud.service";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
   animal: string;
@@ -58,7 +59,8 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     public crudService: CrudService,
     public dialog: MatDialog,
-    private obse: ObsService
+    private obse: ObsService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -101,10 +103,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem("tipo_usuario", "");
     localStorage.setItem("usuario_logueado", "0");
     this.obse.actuliza$.emit("");
-    //Dialogo
-    this.variables_Dialogo("salio", "hola");
-    this.estado_Creacion = "logout";
-    this.openDialog();
+    this._snackBar.open("Regresa Pronto", "Adios!",{duration:2000});
   }
 
   //dialogos de informacion

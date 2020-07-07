@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
 import { MatDialog } from "@angular/material/dialog";
 import { CrudService } from "../../service/crud/crud.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface DialogData {
   animal: string;
@@ -48,7 +49,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     public dialog: MatDialog,
     public crud: CrudService,
-    private abs: ObsService
+    private abs: ObsService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -104,23 +106,24 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["inicio"]);
         } else {
           //Dialogo
-          this.variables_Dialogo("El usuario no ha sido dado de alta como empleado", "hola");
+          this.variables_Dialogo(
+            "El usuario no ha sido dado de alta como empleado",
+            "hola"
+          );
           this.estado_Creacion = "login_error";
           this.openDialog();
-          this.email ="";
-          this.password="";
+          this.email = "";
+          this.password = "";
           return;
         }
-
-        //this.router.navigate(["header"]);
       })
       .catch((err) => {
         //Dialogo
         this.variables_Dialogo(err, "hola");
         this.estado_Creacion = "login_error";
         this.openDialog();
-        this.email ="";
-        this.password="";
+        this.email = "";
+        this.password = "";
         //return;
         console.log("err", err);
       });
@@ -130,12 +133,35 @@ export class LoginComponent implements OnInit {
     this.afAuth.auth
       .signInWithPopup(new auth.GoogleAuthProvider())
       .then((res) => {
-        localStorage.setItem("usuario", res.user.email);
-        localStorage.setItem("usuario_logueado", "1");
-        console.log("resUser", res.user.email);
-        this.abs.actuliza$.emit(res.user.email);
+        //asignar el nivel dentro de la empresa (supervisor o empleado)
+        let nivel = "",
+          flag = false;
+        for (let i = 0; i < this.empleados_local.length; i++) {
+          if (res.user.email === this.empleados_local[i]["correo"]) {
+            nivel = this.empleados_local[i].puesto;
+            flag = true;
+          }
+        }
+        if (flag) {
+          //Dialogo
+          this.variables_Dialogo(this.email, "hola");
+          this.estado_Creacion = "login_bien";
+          this.openDialog();
+          //localestorage
+          localStorage.setItem("tipo_usuario", nivel);
+          localStorage.setItem("usuario", res.user.email);
+          localStorage.setItem("usuario_logueado", "1");
+          this.abs.actuliza$.emit(this.email);
+          this.router.navigate(["inicio"]);
+        } else {
+          this._snackBar.open("EL usuario no ha sido dado de alta como empleado", "Agregar primero!", { duration: 2000 });
+          this.afAuth.auth.signOut();
+          localStorage.setItem("usuario", "");
+          localStorage.setItem("tipo_usuario", "");
+          localStorage.setItem("usuario_logueado", "0");
+          this.abs.actuliza$.emit(this.email);
+        }
       });
-    this.router.navigate(["/inicio"]);
   }
 
   //dialogos de informacion

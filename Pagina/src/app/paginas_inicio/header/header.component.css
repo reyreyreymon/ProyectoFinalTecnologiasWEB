@@ -25,6 +25,10 @@ mat-toolbar{
   color: white;
   cursor: pointer;
 }
+.user{
+  margin: 0 0px 12px 40px;
+  font-size: 17px;
+}
 
 @media(max-width: 959px){
     mat-toolbar{
