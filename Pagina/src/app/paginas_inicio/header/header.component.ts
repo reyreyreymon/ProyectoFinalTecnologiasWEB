@@ -1,4 +1,4 @@
-import { ObsService } from './../../service/obs/obs.service';
+import { ObsService } from "./../../service/obs/obs.service";
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from "firebase/app";
@@ -20,11 +20,14 @@ export interface DialogData {
   styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent implements OnInit {
+  //para el nombre del usuario logueado
+  usuario_nom: boolean = false;
+  correo: string;
   //localstorage
   usuario: string = "";
   usuario_logueado: string = "2";
   tipo_user: string = "";
-  tipo_usuario:string;
+  tipo_usuario: string;
 
   //variables del dialogo
   animal: string;
@@ -78,27 +81,14 @@ export class HeaderComponent implements OnInit {
       console.log(this.empleados);
     });
 
-    this.obse.actuliza$.subscribe( data => {
+    this.obse.actuliza$.subscribe((data) => {
       //localstorage
       //recuperamos datos
       this.usuarioL = data;
       this.usuario = localStorage.getItem("usuario");
       this.tipo_user = localStorage.getItem("tipo_usuario");
       this.usuario_logueado = localStorage.getItem("usuario_logueado");
-   });
-
-/*
-    let tipo = "", correo = "";
-    for (let i = 0; i < this.empleados_local.length; i++) {
-      tipo = this.empleados_local[i]["puesto"];
-      correo = this.empleados_local[i]["correo"];
-      if (tipo === this.tipo_usuario && correo ===this.usuario) {
-        this.tipo_user = tipo;
-        return;
-      }
-    }
-    */
-
+    });
   }
 
   public onToggleSidenav = () => {
@@ -106,18 +96,15 @@ export class HeaderComponent implements OnInit {
   };
 
   onLogout() {
-    //Dialogo
-    this.variables_Dialogo("salio", "hola");
-    this.estado_Creacion = "logout";
-    this.openDialog();
-
     this.afAuth.auth.signOut();
-
     localStorage.setItem("usuario", "");
     localStorage.setItem("tipo_usuario", "");
     localStorage.setItem("usuario_logueado", "0");
     this.obse.actuliza$.emit("");
-    //this.router.navigate(["/inicio"]);
+    //Dialogo
+    this.variables_Dialogo("salio", "hola");
+    this.estado_Creacion = "logout";
+    this.openDialog();
   }
 
   //dialogos de informacion

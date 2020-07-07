@@ -29,10 +29,10 @@
       <div *ngIf="usuario_logueado === '0'">
         <button mat-raised-button routerLink="/login">Iniciar sesion</button>
       </div>
-      <div *ngIf="usuario_logueado === '1'">
-        <a  href="#" (click)="onLogout()"> SALIR</a>
+      <div *ngIf="usuario_logueado === '1'" class="row">
+        <a href="#" (click)="onLogout()">SALIR</a>
+        <p>Usuario: {{this.usuario}}</p>
       </div>
-
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

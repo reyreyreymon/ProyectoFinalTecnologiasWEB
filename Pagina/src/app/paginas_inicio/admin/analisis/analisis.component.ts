@@ -60,6 +60,15 @@ export class AnalisisComponent implements OnInit {
       id: "",
       descripcion: "",
       marca: "",
+      precio: null,
+      existencia: null,
+    },
+  ];
+  productos_encontrados1 = [
+    {
+      id: "",
+      descripcion: "",
+      marca: "",
       precio: "",
       existencia: "",
     },
@@ -75,6 +84,11 @@ export class AnalisisComponent implements OnInit {
   ];
   buscar2: string; //input
   sihay2: boolean = false;
+
+  //variables para buscar por existencia
+  buscar3:number;
+  buscar4:number;
+  sihay3: boolean = false;
 
   //variables para el lector de pantalla
   result = "";
@@ -139,11 +153,30 @@ export class AnalisisComponent implements OnInit {
       //console.log("Consultas: ", this.buscar2, " ? ", this.productos_local[i]['descripcion']);
       if (this.buscar2 == this.productos_local[i]["descripcion"]) {
         this.sihay2 = true;
-        this.productos_encontrados[j++] = this.productos_local[i];
+        this.productos_encontrados1[j++] = this.productos_local[i];
       }
     }
     if (this.sihay2 == false) {
       this.buscar2 = "";
+      //Dialogo
+      this.estado_Creacion = "producto_no_encontrado";
+      this.openDialog();
+      return;
+    }
+  }
+
+  buscarProducto_Precio() {
+    this.sihay3 = false;
+    let j = 0;
+    for (let i = 0; i < this.productos_local.length; i++) {
+      if (this.buscar3 <= this.productos_local[i]["precio"] && this.buscar4 >= this.productos_local[i]["precio"]) {
+        this.sihay3 = true;
+        this.productos_encontrados[j++] = this.productos_local[i];
+      }
+    }
+    if (this.sihay3 == false) {
+      this.buscar3 = null;
+      this.buscar4 = null;
       //Dialogo
       this.estado_Creacion = "producto_no_encontrado";
       this.openDialog();

@@ -1,4 +1,4 @@
-import { ObsService } from './../../service/obs/obs.service';
+import { ObsService } from "./../../service/obs/obs.service";
 import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from "firebase/app";
@@ -81,11 +81,6 @@ export class LoginComponent implements OnInit {
     this.authService
       .loginEmailUser(this.email, this.password)
       .then((res) => {
-        //Dialogo
-        this.variables_Dialogo(this.email, "hola");
-        this.estado_Creacion = "login_bien";
-        this.openDialog();
-
         //asignar el nivel dentro de la empresa (supervisor o empleado)
         let nivel = "",
           flag = false;
@@ -97,14 +92,24 @@ export class LoginComponent implements OnInit {
           }
         }
         if (flag) {
+          //Dialogo
+          this.variables_Dialogo(this.email, "hola");
+          this.estado_Creacion = "login_bien";
+          this.openDialog();
           //localestorage
           localStorage.setItem("tipo_usuario", nivel);
           localStorage.setItem("usuario", this.email);
           localStorage.setItem("usuario_logueado", "1");
           this.abs.actuliza$.emit(this.email);
           this.router.navigate(["inicio"]);
-        }else{
-          alert("no hay");
+        } else {
+          //Dialogo
+          this.variables_Dialogo("El usuario no ha sido dado de alta como empleado", "hola");
+          this.estado_Creacion = "login_error";
+          this.openDialog();
+          this.email ="";
+          this.password="";
+          return;
         }
 
         //this.router.navigate(["header"]);
@@ -114,6 +119,8 @@ export class LoginComponent implements OnInit {
         this.variables_Dialogo(err, "hola");
         this.estado_Creacion = "login_error";
         this.openDialog();
+        this.email ="";
+        this.password="";
         //return;
         console.log("err", err);
       });
