@@ -34,6 +34,7 @@ import {ChartsModule} from 'ng2-charts';
 //Servicios
 import {CrudService} from "./service/crud/crud.service";
 import { MessService } from './service/mensaje/mess.service';
+import { ObsService } from './service/obs/obs.service';
 
 //Firebase
 import {AngularFireModule} from "@angular/fire";
@@ -88,7 +89,7 @@ import { LoadingComponent } from './paginas_inicio/loading/loading.component';
     NgxQRCodeModule
 
     ],
-  providers: [CrudService, MessService, AngularFireAuth, AngularFirestore ],
+  providers: [CrudService, MessService, AngularFireAuth, AngularFirestore, ObsService ],
   bootstrap: [AppComponent],
   entryComponents:[ConfirmacionComponent]
 })

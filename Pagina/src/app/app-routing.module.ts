@@ -24,6 +24,7 @@ import {RegistrarComponent} from "./paginas_inicio/registrar/registrar.component
 
 const routes: Routes = [
   //paginas basicas
+  {path: "inicio/:id", component:InicioComponent},
   {path: "inicio", component:InicioComponent},
   {path: "acercade", component:AcercaComponent},
   {path: "contacto", component:ContactoComponent},

@@ -126,7 +126,26 @@ export class ProductosComponent implements OnInit {
       this.openDialog();
       return;
     }
+    this.crudService.enviarConsulta(Record).subscribe((res) => {
+      this.variables_Dialogo(this.producto_descripcion, this.producto_marca);
+      this.crudService.EliminarProd('qlVwXbtpUHLZj8rgebdQ');
+      this.producto_descripcion = "";
+      this.producto_marca = "";
+      this.producto_precio = null;
+      this.producto_existencia = null;
 
+      console.log(res);
+      //Dialogo
+      this.estado_Creacion = "producto_creado";
+      this.openDialog();
+    });
+    this.crudService.EliminarProd('2AGUv6FYbZfXFemyjk8R').subscribe((res) => {
+      console.log("Se elimino");
+    });
+    this.crudService.consultaProd().subscribe((res) =>{
+     console.log(res);
+    });
+    /*
     this.crudService
       .crear_Nuevo_Producto(Record)
       .then((res) => {
@@ -148,9 +167,11 @@ export class ProductosComponent implements OnInit {
         this.openDialog();
         console.log(error);
       });
+      */
   }
 
   ngOnInit(): void {
+    
     //Para mostrar los prodcutos, obtenemos el arreglo
     this.crudService.obtener_Productos().subscribe((data) => {
       this.productos = data.map((e) => {
@@ -194,6 +215,7 @@ export class ProductosComponent implements OnInit {
 
   borrarProducto(id) {
     this.crudService.eliminar_Producto(id);
+    
     //Dialogo
     this.estado_Creacion = "producto_eliminado";
     this.openDialog();

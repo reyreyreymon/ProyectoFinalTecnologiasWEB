@@ -1,3 +1,4 @@
+import { ObsService } from './../../service/obs/obs.service';
 import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from "firebase/app";
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
     public afAuth: AngularFireAuth,
     private router: Router,
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private abs: ObsService
   ) {}
 
   ngOnInit(): void {}
@@ -43,6 +45,8 @@ export class LoginComponent implements OnInit {
     this.authService
       .loginEmailUser(this.email, this.password)
       .then((res) => {
+        console.log("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        console.log(res);
         //Dialogo
         this.variables_Dialogo(this.email, "hola");
         this.estado_Creacion = "login_bien";
@@ -50,7 +54,8 @@ export class LoginComponent implements OnInit {
         //localestorage
         localStorage.setItem("usuario", this.email);
         localStorage.setItem("usuario_logueado", "1");
-        //this.router.navigate(["header"]);
+        this.abs.actuliza$.emit("Listo");
+        this.router.navigate(["inicio"]);
       })
       .catch((err) => {
         //Dialogo
@@ -60,6 +65,7 @@ export class LoginComponent implements OnInit {
         //return;
         console.log("err", err);
       });
+    console.log(localStorage.getItem("usuario_logueado"));
   }
 
   /*

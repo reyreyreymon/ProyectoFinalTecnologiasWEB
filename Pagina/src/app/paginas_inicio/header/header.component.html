@@ -13,7 +13,7 @@
         <a routerLink="/acercade">Acerca de</a>
         <a routerLink="/contacto">Contacto</a>
         <a routerLink="/preguntasf">Preguntas Frecuentes</a>
-        <a [matMenuTriggerFor]="appMenu" *ngIf="tipo_user ==='supervisor'" id="ad">Admin</a>
+        <a [matMenuTriggerFor]="appMenu" id="ad">Admin</a>
         <mat-menu #appMenu="matMenu">
           <button mat-menu-item routerLink="/empleados_a">Empleados</button>
           <button mat-menu-item routerLink="/productos_a">Productos</button>

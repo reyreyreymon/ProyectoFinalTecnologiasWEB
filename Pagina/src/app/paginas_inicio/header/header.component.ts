@@ -2,11 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from "firebase/app";
 import { AuthService } from "../../service/login/auth.service";
-import { Router } from "@angular/router";
+import { Router} from "@angular/router";
 import { CrudService } from "../../service/crud/crud.service";
 import { ConfirmacionComponent } from "src/app/dialogos/confirmacion/confirmacion.component";
 import { MatDialog } from "@angular/material/dialog";
-
+import { ObsService } from './../../service/obs/obs.service';
 export interface DialogData {
   animal: string;
   name: string;
@@ -21,8 +21,8 @@ export interface DialogData {
 export class HeaderComponent implements OnInit {
   //localstorage
   usuario: string = "";
-  usuario_logueado: string = "0";
-  tipo_user: string = "";
+  usuario_logueado: string = "2";
+  tipo_user: string = "supervisor";
   tipo_usuario:string;
 
   //variables del dialogo
@@ -52,8 +52,10 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public crudService: CrudService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private obse: ObsService
+  ) {
+  }
 
   ngOnInit() {
     //obtener los empleados del servicio
@@ -75,13 +77,16 @@ export class HeaderComponent implements OnInit {
       console.log(this.empleados);
     });
 
-    //localstorage
-    //recuperamos datos
-    this.usuario = localStorage.getItem("usuario");
-    console.log(this.usuario);
-    this.tipo_user = localStorage.getItem("tipo_usuario");
-    //console.log(this.tipo_user);
-    this.usuario_logueado = localStorage.getItem("usuario_logueado");
+    this.obse.actuliza$.subscribe( data => {
+      //localstorage
+      //recuperamos datos
+      this.usuario = localStorage.getItem("usuario");
+      console.log(this.usuario);
+      this.tipo_user = localStorage.getItem("tipo_usuario");
+      //console.log(this.tipo_user);
+      this.usuario_logueado = localStorage.getItem("usuario_logueado");
+      console.log("Nuevo cambio");
+   });
 
 /*
     let tipo = "", correo = "";

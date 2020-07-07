@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from "@angular/fire/firestore";
 
@@ -6,8 +7,17 @@ import {AngularFirestore} from "@angular/fire/firestore";
 })
 export class CrudService {
 
-  constructor(public fireservices:AngularFirestore) { }
+  constructor(public fireservices:AngularFirestore, private http: HttpClient) { }
+  enviarConsulta(Record) {
+    return this.http.post('https://us-central1-pruebaapis-7ff8e.cloudfunctions.net/appi', Record);
+    }
+    consultaProd() {
+      return this.http.get('https://us-central1-pruebaapis-7ff8e.cloudfunctions.net/consulta');
+      }
 
+      EliminarProd(id) {
+        return this.http.post('https://us-central1-pruebaapis-7ff8e.cloudfunctions.net/eliminar', id);
+        }
   //-----------------Crud_Empleado-----------------
   crear_Nuevo_Empleado(Record){
     return this.fireservices
@@ -24,7 +34,7 @@ export class CrudService {
   actualizar_Empledao(id, record){
     this.fireservices.doc('Empleados/' + id).update(record)
   }
-
+  
   eliminar_Empleado(id){
     this.fireservices.doc('Empleados/' + id).delete();
   }
