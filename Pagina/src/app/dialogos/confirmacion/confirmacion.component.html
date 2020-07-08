@@ -1,0 +1,244 @@
+<!--/////////////////////////////////////////Empledaos-->
+<!--Dialogo de empleado Creado-->
+<div *ngIf="data.estado =='empleado_creado'" class="dialogo_creado">
+  <h1 mat-dialog-title>Empleado Creado Exitosamente
+    <span class="material-icons">
+      check_circle_outline
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Datos:</h4>
+    <p> <strong>Nombre: </strong> {{data.name}} <strong>Apellido: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de empleado no creado-->
+<div *ngIf="data.estado =='empleado_no_creado'" class="dialogo_error">
+  <h1 mat-dialog-title>Error al crear empleado
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Error:</h4>
+    <p> Ha habido un error al crear al empleado.</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de empleado Actualizado-->
+<div mat-dialog-content *ngIf="data.estado =='empleado_actualizado'" class="dialogo_actualizado">
+  <h1 mat-dialog-title>Empleado Actualizado Exitosamente
+    <span class="material-icons">
+      autorenew
+    </span></h1>
+  <hr>
+  <div class="text-justify">
+    <h4>Datos:</h4>
+    <p> <strong>Nombre: </strong> {{data.name}} <strong>Apellido: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de empleado Eliminado-->
+<div *ngIf="data.estado =='empleado_eliminado'" class="dialogo_eliminado">
+  <h1 mat-dialog-title>Empleado Eliminado Exitosamente
+    <span class="material-icons">
+      delete
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Exito:</h4>
+    <p> El empleado ha sido eliminado de la base de datos.</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--/////////////////////////////////////////Productos-->
+<!--Dialogo de Productos Creado-->
+<div *ngIf="data.estado =='producto_creado'" class="dialogo_creado">
+  <h1 mat-dialog-title>Producto Creado Exitosamente
+    <span class="material-icons">
+      check_circle_outline
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Datos:</h4>
+    <p> <strong>Descripción: </strong> {{data.name}} <strong> Marca: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de producto no creado-->
+<div *ngIf="data.estado =='producto_no_creado'" class="dialogo_error">
+  <h1 mat-dialog-title>Error al crear producto
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Error:</h4>
+    <p> Ha habido un error al crear al producto.</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de producto Actualizado-->
+<div *ngIf="data.estado =='producto_actualizado'" class="dialogo_actualizado">
+  <h2 mat-dialog-title>
+    Producto Actualizado Exitosamente
+    <span class="material-icons">
+      autorenew
+    </span>
+  </h2>
+  <hr>
+
+  <div mat-dialog-content class="text-justify">
+    <h4>Datos:</h4>
+    <p> <strong>Descripción: </strong> {{data.name}} <strong>Marca: </strong> {{data.animal}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de producto Eliminado-->
+<div *ngIf="data.estado =='producto_eliminado'" class="dialogo_eliminado">
+  <h1 mat-dialog-title>Producto Eliminado Exitosamente
+    <span class="material-icons">
+      delete
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Exito:</h4>
+    <p> El empleado ha sido eliminado de la base de datos.</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!----------------------------Dialogos para las consultas-------------------------------->
+<!--Dialogo de producto no encontrado-->
+<div *ngIf="data.estado =='producto_no_encontrado'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> No se ha emcontrado ese producto en la base de datos. Asegurese de incluir mayusculas</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<!--Dialogo de empleado no encontrado-->
+<div *ngIf="data.estado =='empleado_no_encontrado'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> No se ha emcontrado ese empleado en la base de datos. Asegurese de incluir mayusculas</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+
+<!----------------------------Dialogos para las login-------------------------------->
+<!--Dialogo de producto no encontrado-->
+<div *ngIf="data.estado =='login_error'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> {{data.name}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<div *ngIf="data.estado =='login_bien'" class="dialogo_actualizado">
+  <h1 mat-dialog-title> Bienvenido
+    <span class="material-icons">
+      check_circle_outline
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Ha iniciado sesión:</h4>
+    <p> {{data.name}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+<div *ngIf="data.estado =='logout'" class="dialogo_eliminado">
+  <h1 mat-dialog-title> Regresa pronto
+    <span class="material-icons">
+      check_circle_outline
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Ha terminado su secion</h4>
+    <p></p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+
+<!----------------------------Dialogos para registrar-------------------------------->
+<div *ngIf="data.estado =='registrar_error'" class="dialogo_error">
+  <h1 mat-dialog-title>Error
+    <span class="material-icons">
+      info
+      </span>
+  </h1>
+  <hr>
+  <div mat-dialog-content class="text-justify">
+    <h4>Nota:</h4>
+    <p> {{data.name}}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
+</div>
+
+

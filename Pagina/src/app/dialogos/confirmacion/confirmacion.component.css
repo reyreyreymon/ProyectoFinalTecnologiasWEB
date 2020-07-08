@@ -1,0 +1,66 @@
+.dialogo_creado {
+  background-color: #26d474;
+  color: white;
+}
+.dialogo_eliminado {
+  background-color: #eb2d40;
+  color: white;
+}
+.dialogo_actualizado {
+  background-color: #1a76e8;
+  color: white;
+}
+.dialogo_error {
+  background-color: #ffd417;
+  color: black;
+}
+.dialogo_creado, .dialogo_eliminado, .dialogo_actualizado, .dialogo_error{
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  margin: -0px;
+  height: 100%;
+  width: 100%;
+}
+button{
+  background-color: white;
+  color: black;
+}
+
+
+@media only screen and (min-width: 340px){
+  h1{
+    font-size: 15px;
+  }
+  h4{
+    font-size: 12px;
+  }
+  p{
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 780px){
+  h1{
+    font-size: 20px;
+  }
+  h4{
+    font-size: 15px;
+  }
+  p{
+    font-size: 14px;
+  }
+}
+
+
+@media only screen and (min-width: 1024px){
+  h1{
+    font-size: 25px;
+  }
+  h4{
+    font-size: 20px;
+  }
+  p{
+    font-size: 17px;
+  }
+}
